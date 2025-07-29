@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
-import { Search, Download, Trash2, Eye, Calendar, User, Car } from "lucide-react"
+import { Search, Download, Trash2, Eye, Calendar, User, Car, X } from "lucide-react"
 import { photoService, type PhotoData } from "@/lib/photo-service"
 import { useLanguage } from "../contexts/language-context"
 import { useToast } from "@/hooks/use-toast"
@@ -150,9 +150,22 @@ export default function PhotoViewer({ carId, isOpen, onClose }: PhotoViewerProps
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent className="mobile-modal-content max-w-6xl h-[90vh] p-0">
           <DialogHeader className="mobile-spacing p-6 pb-4">
-            <DialogTitle className="mobile-heading text-xl font-bold">
-              {t("photoGallery")} - {carId}
-            </DialogTitle>
+            <div className="flex items-center justify-between">
+              <DialogTitle className="mobile-heading text-xl font-bold">
+                {t("photoGallery")} - {groupedPhotos && Object.keys(groupedPhotos).length > 0 
+                  ? Object.values(groupedPhotos)[0]?.driverName || t("photos")
+                  : t("photos")
+                }
+              </DialogTitle>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onClose}
+                className="mobile-touch-friendly h-8 w-8 p-0"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
           </DialogHeader>
 
           <div className="flex-1 mobile-spacing p-6 pt-0 space-y-4">
@@ -279,14 +292,24 @@ export default function PhotoViewer({ carId, isOpen, onClose }: PhotoViewerProps
       <Dialog open={showPhotoModal} onOpenChange={setShowPhotoModal}>
         <DialogContent className="mobile-modal-content max-w-4xl">
           <DialogHeader>
-            <DialogTitle className="mobile-heading">
-              {selectedPhoto && (
-                <div className="mobile-flex items-center gap-2">
-                  <span>{getPhotoTypeLabel(selectedPhoto.photo_type)}</span>
-                  <Badge variant="outline">{getTripTypeLabel(selectedPhoto.trip_type)}</Badge>
-                </div>
-              )}
-            </DialogTitle>
+            <div className="flex items-center justify-between">
+              <DialogTitle className="mobile-heading">
+                {selectedPhoto && (
+                  <div className="mobile-flex items-center gap-2">
+                    <span>{getPhotoTypeLabel(selectedPhoto.photo_type)}</span>
+                    <Badge variant="outline">{getTripTypeLabel(selectedPhoto.trip_type)}</Badge>
+                  </div>
+                )}
+              </DialogTitle>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowPhotoModal(false)}
+                className="mobile-touch-friendly h-8 w-8 p-0"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
           </DialogHeader>
           {selectedPhoto && (
             <div className="mobile-spacing space-y-4">
