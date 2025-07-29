@@ -798,27 +798,47 @@ export default function AdminPage() {
                     </div>
                   ) : (
                     <div className="mobile-spacing">
-                      {Object.entries(getGroupedPhotos()).map(([carId, photosArr]) => (
-                        <div key={carId} className="mobile-card">
-                          <div className="flex items-center justify-between mb-4">
-                            <h3 className="mobile-subtitle font-semibold">
-                              {cars.find(c => c.id === carId)?.plate_number || carId}
-                            </h3>
-                            <span className="mobile-text text-slate-500">{photosArr.length} {t("photos")}</span>
+                      {Object.entries(getGroupedPhotos()).map(([day, carsMap]) => (
+                        <div key={day} className="mobile-card">
+                          <div className="flex items-center gap-2 mb-4">
+                            <Calendar className="h-4 w-4 text-slate-500" />
+                            <h3 className="mobile-subtitle font-semibold">{day}</h3>
                           </div>
-                          <div className="mobile-grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                            {photosArr.map(p => (
-                              <div key={p.id} className={`relative group ${selectedPhotos.has(p.id)?'ring-2 ring-blue-500':''}` }>
-                                <img src={p.photo_url} alt="photo" className="w-full h-32 object-cover rounded border" />
-                                {/* checkbox for multi select */}
-                                <input type="checkbox" className="absolute top-1 left-1 h-4 w-4" checked={selectedPhotos.has(p.id)} onChange={()=>togglePhotoSelect(p.id)} />
-                                {/* single delete button */}
-                                <button className="mobile-touch-friendly absolute top-1 right-1 bg-white/70 rounded p-0.5" onClick={async()=>{ if(confirm('Slett bilde?')){ setRecentPhotos(prev=>prev.filter(ph=>ph.id!==p.id)); await photoService.deletePhoto(p.id); } }}>
-                                   <Trash2 className="h-3 w-3 text-red-600" />
-                                </button>
+                          {Object.entries(carsMap).map(([carId, driversMap]) => (
+                            <div key={carId} className="mb-4">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Car className="h-4 w-4 text-slate-500" />
+                                <h4 className="mobile-text font-medium">
+                                  {cars.find(c => c.id === carId)?.plate_number || carId}
+                                </h4>
                               </div>
-                            ))}
-                          </div>
+                              {Object.entries(driversMap).map(([driverKey, photosArr]) => {
+                                const [driverName, trip] = driverKey.split('-')
+                                return (
+                                  <div key={driverKey} className="mb-3 ml-4">
+                                    <div className="flex items-center gap-2 mb-2">
+                                      <User className="h-3 w-3 text-slate-500" />
+                                      <span className="mobile-text text-slate-600">{driverName}</span>
+                                      <Badge variant="secondary" className="text-xs">{trip}</Badge>
+                                    </div>
+                                    <div className="mobile-grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                                      {photosArr.map(p => (
+                                        <div key={p.id} className={`relative group ${selectedPhotos.has(p.id)?'ring-2 ring-blue-500':''}` }>
+                                          <img src={p.photo_url} alt="photo" className="w-full h-32 object-cover rounded border" />
+                                          {/* checkbox for multi select */}
+                                          <input type="checkbox" className="absolute top-1 left-1 h-4 w-4" checked={selectedPhotos.has(p.id)} onChange={()=>togglePhotoSelect(p.id)} />
+                                          {/* single delete button */}
+                                          <button className="mobile-touch-friendly absolute top-1 right-1 bg-white/70 rounded p-0.5" onClick={async()=>{ if(confirm('Slett bilde?')){ setRecentPhotos(prev=>prev.filter(ph=>ph.id!==p.id)); await photoService.deletePhoto(p.id); } }}>
+                                             <Trash2 className="h-3 w-3 text-red-600" />
+                                          </button>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )
+                              })}
+                            </div>
+                          ))}
                         </div>
                       ))}
                     </div>
