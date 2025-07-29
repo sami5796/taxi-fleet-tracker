@@ -1,5 +1,8 @@
 import { supabase, type CarData, type Driver, type VaktlisteEntry, type Reservation } from './supabase'
 
+// Flag to disable real-time subscriptions if they cause issues
+const ENABLE_REALTIME = false
+
 // Car operations
 export const carService = {
   // Get all cars with real-time subscription
@@ -161,6 +164,22 @@ export const carService = {
 
   // Subscribe to car changes
   subscribeToCars(callback: (payload: any) => void) {
+    if (!ENABLE_REALTIME) {
+      console.log('data-service: Real-time subscriptions disabled, using polling fallback')
+      // Return a dummy subscription that triggers a refresh every 30 seconds
+      const interval = setInterval(() => {
+        console.log('data-service: Polling for car updates...')
+        callback({ type: 'polling', timestamp: new Date().toISOString() })
+      }, 30000)
+      
+      return {
+        unsubscribe: () => {
+          console.log('data-service: Stopping car polling')
+          clearInterval(interval)
+        }
+      }
+    }
+
     try {
       console.log('data-service: Subscribing to cars changes...')
       return supabase
@@ -187,6 +206,22 @@ export const carService = {
 
   // Subscribe to schedule changes
   subscribeToSchedules(callback: (payload: any) => void) {
+    if (!ENABLE_REALTIME) {
+      console.log('data-service: Real-time subscriptions disabled, using polling fallback')
+      // Return a dummy subscription that triggers a refresh every 30 seconds
+      const interval = setInterval(() => {
+        console.log('data-service: Polling for schedule updates...')
+        callback({ type: 'polling', timestamp: new Date().toISOString() })
+      }, 30000)
+      
+      return {
+        unsubscribe: () => {
+          console.log('data-service: Stopping schedule polling')
+          clearInterval(interval)
+        }
+      }
+    }
+
     try {
       console.log('data-service: Subscribing to schedules changes...')
       return supabase
@@ -378,6 +413,22 @@ export const driverService = {
 
   // Subscribe to driver changes
   subscribeToDrivers(callback: (payload: any) => void) {
+    if (!ENABLE_REALTIME) {
+      console.log('data-service: Real-time subscriptions disabled, using polling fallback')
+      // Return a dummy subscription that triggers a refresh every 30 seconds
+      const interval = setInterval(() => {
+        console.log('data-service: Polling for driver updates...')
+        callback({ type: 'polling', timestamp: new Date().toISOString() })
+      }, 30000)
+      
+      return {
+        unsubscribe: () => {
+          console.log('data-service: Stopping driver polling')
+          clearInterval(interval)
+        }
+      }
+    }
+
     try {
       console.log('data-service: Subscribing to drivers changes...')
       return supabase
@@ -548,6 +599,22 @@ export const vaktlisteService = {
 
   // Subscribe to vaktliste changes
   subscribeToVaktliste(callback: (payload: any) => void) {
+    if (!ENABLE_REALTIME) {
+      console.log('data-service: Real-time subscriptions disabled, using polling fallback')
+      // Return a dummy subscription that triggers a refresh every 30 seconds
+      const interval = setInterval(() => {
+        console.log('data-service: Polling for vaktliste updates...')
+        callback({ type: 'polling', timestamp: new Date().toISOString() })
+      }, 30000)
+      
+      return {
+        unsubscribe: () => {
+          console.log('data-service: Stopping vaktliste polling')
+          clearInterval(interval)
+        }
+      }
+    }
+
     try {
       console.log('data-service: Subscribing to vaktliste changes...')
       return supabase
