@@ -185,7 +185,7 @@ export default function PhotoCaptureModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="mobile-modal-content max-w-[75vw] w-[75vw] h-[60vh] md:max-w-lg md:h-[55vh] p-0 bg-white dark:bg-black">
+      <DialogContent className="mobile-modal-content max-w-[75vw] w-[75vw] h-[70vh] md:max-w-lg md:h-[65vh] p-0 bg-white dark:bg-black">
         <DialogHeader className="mobile-spacing p-1 md:p-2 pb-0.5 bg-white dark:bg-black text-slate-900 dark:text-white">
           <DialogTitle className="mobile-heading text-xs font-bold text-slate-900 dark:text-white">
             {type === "pickup" ? t("photoCapturePickup") : t("photoCaptureReturn")} - {car.plate_number}
@@ -195,7 +195,7 @@ export default function PhotoCaptureModal({
           </p>
         </DialogHeader>
 
-        <div className="flex-1 flex flex-col mobile-spacing p-1 md:p-2 pt-0 bg-white dark:bg-black text-slate-900 dark:text-white">
+        <div className="flex-1 flex flex-col mobile-spacing p-1 md:p-2 pt-0 bg-white dark:bg-black text-slate-900 dark:text-white overflow-y-auto">
           {/* Progress Bar - Mobile First */}
           <div className="mb-1">
             <div className="flex justify-between mobile-text text-xs text-slate-600 dark:text-gray-300 mb-0.5">
@@ -221,7 +221,7 @@ export default function PhotoCaptureModal({
           </div>
 
           {/* Camera View - Mobile First - Very Small */}
-          <div className="relative bg-slate-100 dark:bg-gray-900 rounded overflow-hidden mb-1 min-h-[60px] md:min-h-[80px]">
+          <div className="relative bg-slate-100 dark:bg-gray-900 rounded overflow-hidden mb-1 min-h-[40px] md:min-h-[60px]">
             {cameraError ? (
               <div className="flex items-center justify-center h-full bg-slate-200 dark:bg-gray-800">
                 <div className="text-center p-1">
@@ -251,20 +251,6 @@ export default function PhotoCaptureModal({
                 {isCapturing && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/70">
                     <div className="mobile-text text-white text-xs font-medium">{t("capturing")}...</div>
-                  </div>
-                )}
-                
-                {/* Mobile-First Capture Button - Very Small */}
-                {!photos[currentStep] && !isCapturing && (
-                  <div className="absolute bottom-0.5 left-1/2 transform -translate-x-1/2">
-                    <Button
-                      onClick={capturePhoto}
-                      size="sm"
-                      className="mobile-touch-friendly bg-blue-600 hover:bg-blue-700 text-white px-1.5 py-0.5 text-xs font-medium rounded-full shadow-lg min-w-[50px] min-h-[20px]"
-                    >
-                      <Camera className="h-2 w-2 mr-0.5" />
-                      {t("capture")}
-                    </Button>
                   </div>
                 )}
               </>
@@ -346,9 +332,23 @@ export default function PhotoCaptureModal({
             </div>
           </div>
 
+          {/* Mobile-First Capture Button - Scrollable Access */}
+          {!photos[currentStep] && !isCapturing && (
+            <div className="text-center mb-1">
+              <Button
+                onClick={capturePhoto}
+                size="sm"
+                className="mobile-touch-friendly bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 text-xs font-medium rounded-full shadow-lg min-w-[80px] min-h-[28px]"
+              >
+                <Camera className="h-2.5 w-2.5 mr-0.5" />
+                {t("capture")}
+              </Button>
+            </div>
+          )}
+
           {/* Mobile-First Complete Button - Very Compact */}
           {Object.keys(photos).length === 4 && (
-            <div className="text-center">
+            <div className="text-center mb-1">
               <Button
                 onClick={handleComplete}
                 className="mobile-button bg-green-600 hover:bg-green-700 text-white px-1.5 md:px-2 py-0.5 text-xs font-medium w-full md:w-auto min-h-[20px]"
