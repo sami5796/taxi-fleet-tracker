@@ -70,6 +70,15 @@ export default function AdminPage() {
     mileage: 0,
     status: "free" as const
   })
+  const [editCarData, setEditCarData] = useState({
+    plate_number: "",
+    model: "",
+    location: "",
+    battery_level: 100,
+    fuel_level: 100,
+    mileage: 0,
+    status: "free" as "free" | "busy" | "reserved" | "maintenance"
+  })
 
   // Scheduling states
   const [showScheduleCar, setShowScheduleCar] = useState(false)
@@ -160,7 +169,7 @@ export default function AdminPage() {
     if (!selectedCar) return
     
     try {
-      await carService.updateCar(selectedCar.id, selectedCar)
+      await carService.updateCar(selectedCar.id, editCarData)
       
       toast({
         title: t("success"),
@@ -667,6 +676,15 @@ export default function AdminPage() {
                               variant="outline"
                               onClick={() => {
                                 setSelectedCar(car)
+                                setEditCarData({
+                                  plate_number: car.plate_number,
+                                  model: car.model,
+                                  location: car.location || "",
+                                  battery_level: car.battery_level,
+                                  fuel_level: car.fuel_level,
+                                  mileage: car.mileage,
+                                  status: car.status
+                                })
                                 setShowEditCar(true)
                               }}
                               className="mobile-button-compact"
@@ -915,6 +933,143 @@ export default function AdminPage() {
                       {t("cancel")}
                     </Button>
                     <Button onClick={handleEditSchedule} className="mobile-button">
+                      {t("save")}
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
+
+          {/* Edit Car Dialog */}
+          {selectedCar && (
+            <Dialog open={showEditCar} onOpenChange={setShowEditCar}>
+              <DialogContent className="mobile-modal-content max-w-md">
+                <DialogHeader>
+                  <DialogTitle className="mobile-heading">{t("editCar")}</DialogTitle>
+                </DialogHeader>
+                <div className="mobile-spacing">
+                  <div>
+                    <Label htmlFor="edit_plate_number" className="mobile-text">{t("plateNumber")}</Label>
+                    <Input
+                      id="edit_plate_number"
+                      value={editCarData.plate_number}
+                      onChange={(e) => setEditCarData({...editCarData, plate_number: e.target.value})}
+                      placeholder="EL12345"
+                      className="mobile-input mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="edit_model" className="mobile-text">{t("model")}</Label>
+                    <Input
+                      id="edit_model"
+                      value={editCarData.model}
+                      onChange={(e) => setEditCarData({...editCarData, model: e.target.value})}
+                      placeholder="Tesla Model 3"
+                      className="mobile-input mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="edit_location" className="mobile-text">{t("location")}</Label>
+                    <Input
+                      id="edit_location"
+                      value={editCarData.location}
+                      onChange={(e) => setEditCarData({...editCarData, location: e.target.value})}
+                      placeholder="SNØ P-hus"
+                      className="mobile-input mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="edit_battery_level" className="mobile-text">{t("battery")} (%)</Label>
+                    <Input
+                      id="edit_battery_level"
+                      type="number"
+                      min="0"
+                      max="100"
+                      value={editCarData.battery_level}
+                      onChange={(e) => setEditCarData({...editCarData, battery_level: Number(e.target.value)})}
+                      className="mobile-input mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="edit_mileage" className="mobile-text">{t("mileage")} (km)</Label>
+                    <Input
+                      id="edit_mileage"
+                      type="number"
+                      min="0"
+                      value={editCarData.mileage}
+                      onChange={(e) => setEditCarData({...editCarData, mileage: Number(e.target.value)})}
+                      className="mobile-input mt-1"
+                    />
+                  </div>
+                  <div className="flex justify-end gap-2 pt-4">
+                    <Button variant="outline" onClick={() => setShowEditCar(false)} className="mobile-button">
+                      {t("cancel")}
+                    </Button>
+                    <Button onClick={handleEditCar} className="mobile-button">
+                      {t("save")}
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
+
+          {/* Schedule Car Dialog */}
+          {selectedCar && (
+            <Dialog open={showScheduleCar} onOpenChange={setShowScheduleCar}>
+              <DialogContent className="mobile-modal-content max-w-md">
+                <DialogHeader>
+                  <DialogTitle className="mobile-heading">{t("scheduleCar")}</DialogTitle>
+                </DialogHeader>
+                <div className="mobile-spacing">
+                  <div>
+                    <Label htmlFor="schedule_driver_name" className="mobile-text">{t("driverName")}</Label>
+                    <Input
+                      id="schedule_driver_name"
+                      value={scheduleData.driver_name}
+                      onChange={(e) => setScheduleData({...scheduleData, driver_name: e.target.value})}
+                      placeholder="Enter driver name"
+                      className="mobile-input mt-1"
+                    />
+                  </div>
+                  <div className="mobile-grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="schedule_reserved_from" className="mobile-text">{t("from")}</Label>
+                      <Input
+                        id="schedule_reserved_from"
+                        type="datetime-local"
+                        value={scheduleData.reserved_from}
+                        onChange={(e) => setScheduleData({...scheduleData, reserved_from: e.target.value})}
+                        className="mobile-input mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="schedule_reserved_to" className="mobile-text">{t("to")}</Label>
+                      <Input
+                        id="schedule_reserved_to"
+                        type="datetime-local"
+                        value={scheduleData.reserved_to}
+                        onChange={(e) => setScheduleData({...scheduleData, reserved_to: e.target.value})}
+                        className="mobile-input mt-1"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="schedule_notes" className="mobile-text">{t("notes")}</Label>
+                    <Textarea
+                      id="schedule_notes"
+                      value={scheduleData.notes}
+                      onChange={(e) => setScheduleData({...scheduleData, notes: e.target.value})}
+                      placeholder="Optional notes"
+                      className="mobile-input mt-1"
+                    />
+                  </div>
+                  <div className="flex justify-end gap-2 pt-4">
+                    <Button variant="outline" onClick={() => setShowScheduleCar(false)} className="mobile-button">
+                      {t("cancel")}
+                    </Button>
+                    <Button onClick={handleScheduleCar} className="mobile-button">
                       {t("save")}
                     </Button>
                   </div>
