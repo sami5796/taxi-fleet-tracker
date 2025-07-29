@@ -185,9 +185,9 @@ export default function PhotoCaptureModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="mobile-modal-content max-w-[85vw] w-[85vw] h-[75vh] md:max-w-2xl md:h-[70vh] p-0 bg-white dark:bg-black">
-        <DialogHeader className="mobile-spacing p-2 md:p-3 pb-1 md:pb-2 bg-white dark:bg-black text-slate-900 dark:text-white">
-          <DialogTitle className="mobile-heading text-xs md:text-sm font-bold text-slate-900 dark:text-white">
+      <DialogContent className="mobile-modal-content max-w-[80vw] w-[80vw] h-[65vh] md:max-w-2xl md:h-[60vh] p-0 bg-white dark:bg-black">
+        <DialogHeader className="mobile-spacing p-1.5 md:p-2 pb-0.5 md:pb-1 bg-white dark:bg-black text-slate-900 dark:text-white">
+          <DialogTitle className="mobile-heading text-xs font-bold text-slate-900 dark:text-white">
             {type === "pickup" ? t("photoCapturePickup") : t("photoCaptureReturn")} - {car.plate_number}
           </DialogTitle>
           <p className="mobile-text text-xs text-slate-600 dark:text-gray-300">
@@ -195,24 +195,24 @@ export default function PhotoCaptureModal({
           </p>
         </DialogHeader>
 
-        <div className="flex-1 flex flex-col mobile-spacing p-2 md:p-3 pt-0 bg-white dark:bg-black text-slate-900 dark:text-white">
+        <div className="flex-1 flex flex-col mobile-spacing p-1.5 md:p-2 pt-0 bg-white dark:bg-black text-slate-900 dark:text-white">
           {/* Progress Bar - Mobile First */}
-          <div className="mb-2">
-            <div className="flex justify-between mobile-text text-xs text-slate-600 dark:text-gray-300 mb-1">
+          <div className="mb-1.5">
+            <div className="flex justify-between mobile-text text-xs text-slate-600 dark:text-gray-300 mb-0.5">
               <span>{t("progress")}: {Object.keys(photos).length}/4</span>
               <span>{Math.round(progress)}%</span>
             </div>
-            <div className="w-full bg-slate-200 dark:bg-gray-700 rounded-full h-1.5">
+            <div className="w-full bg-slate-200 dark:bg-gray-700 rounded-full h-1">
               <div
-                className="bg-blue-500 h-1.5 rounded-full transition-all duration-300"
+                className="bg-blue-500 h-1 rounded-full transition-all duration-300"
                 style={{ width: `${progress}%` }}
               />
             </div>
           </div>
 
           {/* Current Position Info - Mobile First */}
-          <div className="text-center mb-2">
-            <h3 className="mobile-heading text-xs font-semibold text-slate-900 dark:text-white mb-1">
+          <div className="text-center mb-1.5">
+            <h3 className="mobile-heading text-xs font-semibold text-slate-900 dark:text-white mb-0.5">
               {t("currentPosition")}: {getPositionLabel(currentStep)}
             </h3>
             <p className="mobile-text text-xs text-slate-600 dark:text-gray-300">
@@ -221,7 +221,7 @@ export default function PhotoCaptureModal({
           </div>
 
           {/* Camera View - Mobile First - Much Smaller */}
-          <div className="relative bg-slate-100 dark:bg-gray-900 rounded-lg overflow-hidden mb-2 min-h-[120px] md:min-h-[150px]">
+          <div className="relative bg-slate-100 dark:bg-gray-900 rounded-lg overflow-hidden mb-2 min-h-[80px] md:min-h-[100px]">
             {cameraError ? (
               <div className="flex items-center justify-center h-full bg-slate-200 dark:bg-gray-800">
                 <div className="text-center p-2">
@@ -256,13 +256,13 @@ export default function PhotoCaptureModal({
                 
                 {/* Mobile-First Capture Button - Small and Centered */}
                 {!photos[currentStep] && !isCapturing && (
-                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
+                  <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
                     <Button
                       onClick={capturePhoto}
                       size="sm"
-                      className="mobile-touch-friendly bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 text-xs font-medium rounded-full shadow-lg min-w-[80px] min-h-[32px]"
+                      className="mobile-touch-friendly bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 text-xs font-medium rounded-full shadow-lg min-w-[60px] min-h-[24px]"
                     >
-                      <Camera className="h-3 w-3 mr-1" />
+                      <Camera className="h-2.5 w-2.5 mr-0.5" />
                       {t("capture")}
                     </Button>
                   </div>
@@ -272,7 +272,7 @@ export default function PhotoCaptureModal({
           </div>
 
           {/* Mobile-First Photo Grid - Compact */}
-          <div className="grid grid-cols-4 gap-1 mb-2">
+          <div className="grid grid-cols-4 gap-0.5 mb-1.5">
             {photoPositions.map((position) => (
               <div
                 key={position}
@@ -310,36 +310,36 @@ export default function PhotoCaptureModal({
           </div>
 
           {/* Mobile-First Navigation - Ultra Compact */}
-          <div className="flex items-center justify-between gap-1 mb-2">
-            <div className="flex gap-1">
+          <div className="flex items-center justify-between gap-0.5 mb-1.5">
+            <div className="flex gap-0.5">
               <Button
                 variant="outline"
                 onClick={handlePrevious}
                 disabled={currentIndex === 0}
-                className="mobile-button-compact flex items-center gap-1 text-xs px-1.5 py-1 h-6"
+                className="mobile-button-compact flex items-center gap-0.5 text-xs px-1 py-0.5 h-5"
               >
-                <ArrowLeft className="h-2.5 w-2.5" />
+                <ArrowLeft className="h-2 w-2" />
                 <span className="hidden sm:inline">{t("previous")}</span>
               </Button>
               <Button
                 variant="outline"
                 onClick={handleNext}
                 disabled={currentIndex === photoPositions.length - 1}
-                className="mobile-button-compact flex items-center gap-1 text-xs px-1.5 py-1 h-6"
+                className="mobile-button-compact flex items-center gap-0.5 text-xs px-1 py-0.5 h-5"
               >
                 <span className="hidden sm:inline">{t("next")}</span>
-                <ArrowRight className="h-2.5 w-2.5" />
+                <ArrowRight className="h-2 w-2" />
               </Button>
             </div>
 
-            <div className="flex gap-1">
+            <div className="flex gap-0.5">
               {photos[currentStep] && (
                 <Button
                   variant="outline"
                   onClick={retakePhoto}
-                  className="mobile-button-compact flex items-center gap-1 text-xs px-1.5 py-1 h-6"
+                  className="mobile-button-compact flex items-center gap-0.5 text-xs px-1 py-0.5 h-5"
                 >
-                  <RotateCcw className="h-2.5 w-2.5" />
+                  <RotateCcw className="h-2 w-2" />
                   <span className="hidden sm:inline">{t("retake")}</span>
                 </Button>
               )}
@@ -351,17 +351,17 @@ export default function PhotoCaptureModal({
             <div className="text-center">
               <Button
                 onClick={handleComplete}
-                className="mobile-button bg-green-600 hover:bg-green-700 text-white px-3 md:px-4 py-1.5 text-xs font-medium w-full md:w-auto min-h-[28px]"
+                className="mobile-button bg-green-600 hover:bg-green-700 text-white px-2 md:px-3 py-1 text-xs font-medium w-full md:w-auto min-h-[24px]"
                 disabled={isCompleting}
               >
                 {isCompleting ? (
-                  <svg className="animate-spin h-3 w-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <svg className="animate-spin h-2.5 w-2.5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
                 ) : (
                   <>
-                    <Check className="h-3 w-3 mr-1" />
+                    <Check className="h-2.5 w-2.5 mr-0.5" />
                     {t("completePhotoCapture")}
                   </>
                 )}
