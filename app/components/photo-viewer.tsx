@@ -148,16 +148,16 @@ export default function PhotoViewer({ carId, isOpen, onClose }: PhotoViewerProps
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="max-w-6xl h-[90vh] p-0">
-          <DialogHeader className="p-6 pb-4">
-            <DialogTitle className="text-xl font-bold">
+        <DialogContent className="mobile-modal-content max-w-6xl h-[90vh] p-0">
+          <DialogHeader className="mobile-spacing p-6 pb-4">
+            <DialogTitle className="mobile-heading text-xl font-bold">
               {t("photoGallery")} - {carId}
             </DialogTitle>
           </DialogHeader>
 
-          <div className="flex-1 p-6 pt-0 space-y-4">
-            {/* Filters */}
-            <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex-1 mobile-spacing p-6 pt-0 space-y-4">
+            {/* Filters - Mobile Optimized */}
+            <div className="mobile-grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex-1">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
@@ -165,12 +165,12 @@ export default function PhotoViewer({ carId, isOpen, onClose }: PhotoViewerProps
                     placeholder={t("searchPhotos")}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
+                    className="mobile-input pl-10"
                   />
                 </div>
               </div>
               <Select value={filterTripType} onValueChange={(value: any) => setFilterTripType(value)}>
-                <SelectTrigger className="w-full sm:w-48">
+                <SelectTrigger className="mobile-input w-full sm:w-48">
                   <SelectValue placeholder={t("filterByTripType")} />
                 </SelectTrigger>
                 <SelectContent>
@@ -181,7 +181,7 @@ export default function PhotoViewer({ carId, isOpen, onClose }: PhotoViewerProps
               </Select>
             </div>
 
-            {/* Photos Grid */}
+            {/* Photos Grid - Mobile Optimized */}
             {loading ? (
               <div className="flex items-center justify-center h-64">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
@@ -189,39 +189,39 @@ export default function PhotoViewer({ carId, isOpen, onClose }: PhotoViewerProps
             ) : filteredPhotos.length === 0 ? (
               <div className="text-center py-12">
                 <Car className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
+                <h3 className="mobile-heading text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
                   {t("noPhotosFound")}
                 </h3>
-                <p className="text-gray-500 dark:text-gray-400">
+                <p className="mobile-text text-gray-500 dark:text-gray-400">
                   {t("noPhotosDescription")}
                 </p>
               </div>
             ) : (
               <div className="space-y-6">
                 {filteredPhotos.map(([key, group]) => (
-                  <Card key={key} className="overflow-hidden">
+                  <Card key={key} className="mobile-card overflow-hidden">
                     <CardHeader className="bg-gray-50 dark:bg-gray-800">
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                        <div className="flex items-center gap-4">
+                      <div className="mobile-flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                        <div className="mobile-flex items-center gap-4">
                           <div className="flex items-center gap-2">
                             <Calendar className="h-4 w-4 text-gray-500" />
-                            <span className="font-medium">{group.tripDate}</span>
+                            <span className="mobile-text font-medium">{group.tripDate}</span>
                           </div>
                           <div className="flex items-center gap-2">
                             <User className="h-4 w-4 text-gray-500" />
-                            <span className="font-medium">{group.driverName}</span>
+                            <span className="mobile-text font-medium">{group.driverName}</span>
                           </div>
                           <Badge variant={group.tripType === 'pickup' ? 'default' : 'secondary'}>
                             {getTripTypeLabel(group.tripType)}
                           </Badge>
                         </div>
-                        <div className="text-sm text-gray-500">
+                        <div className="mobile-text text-sm text-gray-500">
                           {group.photos.length} {t("photos")}
                         </div>
                       </div>
                     </CardHeader>
-                    <CardContent className="p-4">
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <CardContent className="mobile-spacing p-4">
+                      <div className="mobile-grid grid-cols-2 md:grid-cols-4 gap-4">
                         {group.photos.map((photo) => (
                           <div key={photo.id} className="relative group">
                             <div className="aspect-square overflow-hidden rounded-lg border">
@@ -236,10 +236,10 @@ export default function PhotoViewer({ carId, isOpen, onClose }: PhotoViewerProps
                               />
                             </div>
                             
-                            {/* Overlay with actions */}
+                            {/* Overlay with actions - Mobile Optimized */}
                             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200 rounded-lg">
                               <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                <Badge variant="secondary" className="text-xs">
+                                <Badge variant="secondary" className="mobile-text text-xs">
                                   {getPhotoTypeLabel(photo.photo_type)}
                                 </Badge>
                               </div>
@@ -249,7 +249,7 @@ export default function PhotoViewer({ carId, isOpen, onClose }: PhotoViewerProps
                                   size="sm"
                                   variant="secondary"
                                   onClick={() => handleDownloadPhoto(photo)}
-                                  className="h-8 w-8 p-0"
+                                  className="mobile-touch-friendly h-8 w-8 p-0"
                                 >
                                   <Download className="h-4 w-4" />
                                 </Button>
@@ -257,7 +257,7 @@ export default function PhotoViewer({ carId, isOpen, onClose }: PhotoViewerProps
                                   size="sm"
                                   variant="destructive"
                                   onClick={() => handleDeletePhoto(photo.id)}
-                                  className="h-8 w-8 p-0"
+                                  className="mobile-touch-friendly h-8 w-8 p-0"
                                 >
                                   <Trash2 className="h-4 w-4" />
                                 </Button>
@@ -275,13 +275,13 @@ export default function PhotoViewer({ carId, isOpen, onClose }: PhotoViewerProps
         </DialogContent>
       </Dialog>
 
-      {/* Photo Modal */}
+      {/* Photo Modal - Mobile Optimized */}
       <Dialog open={showPhotoModal} onOpenChange={setShowPhotoModal}>
-        <DialogContent className="max-w-4xl">
+        <DialogContent className="mobile-modal-content max-w-4xl">
           <DialogHeader>
-            <DialogTitle>
+            <DialogTitle className="mobile-heading">
               {selectedPhoto && (
-                <div className="flex items-center gap-2">
+                <div className="mobile-flex items-center gap-2">
                   <span>{getPhotoTypeLabel(selectedPhoto.photo_type)}</span>
                   <Badge variant="outline">{getTripTypeLabel(selectedPhoto.trip_type)}</Badge>
                 </div>
@@ -289,7 +289,7 @@ export default function PhotoViewer({ carId, isOpen, onClose }: PhotoViewerProps
             </DialogTitle>
           </DialogHeader>
           {selectedPhoto && (
-            <div className="space-y-4">
+            <div className="mobile-spacing space-y-4">
               <div className="aspect-video overflow-hidden rounded-lg">
                 <img
                   src={selectedPhoto.photo_url}
@@ -297,26 +297,26 @@ export default function PhotoViewer({ carId, isOpen, onClose }: PhotoViewerProps
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="mobile-grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div>
-                  <span className="font-medium">{t("driver")}:</span> {selectedPhoto.driver_name}
+                  <span className="mobile-text font-medium">{t("driver")}:</span> {selectedPhoto.driver_name}
                 </div>
                 <div>
-                  <span className="font-medium">{t("date")}:</span> {new Date(selectedPhoto.uploaded_at).toLocaleString()}
+                  <span className="mobile-text font-medium">{t("date")}:</span> {new Date(selectedPhoto.uploaded_at).toLocaleString()}
                 </div>
                 <div>
-                  <span className="font-medium">{t("file")}:</span> {selectedPhoto.file_name}
+                  <span className="mobile-text font-medium">{t("file")}:</span> {selectedPhoto.file_name}
                 </div>
                 <div>
-                  <span className="font-medium">{t("type")}:</span> {getPhotoTypeLabel(selectedPhoto.photo_type)}
+                  <span className="mobile-text font-medium">{t("type")}:</span> {getPhotoTypeLabel(selectedPhoto.photo_type)}
                 </div>
               </div>
-              <div className="flex gap-2">
-                <Button onClick={() => handleDownloadPhoto(selectedPhoto)}>
+              <div className="mobile-flex gap-2">
+                <Button onClick={() => handleDownloadPhoto(selectedPhoto)} className="mobile-button">
                   <Download className="h-4 w-4 mr-2" />
                   {t("download")}
                 </Button>
-                <Button variant="destructive" onClick={() => handleDeletePhoto(selectedPhoto.id)}>
+                <Button variant="destructive" onClick={() => handleDeletePhoto(selectedPhoto.id)} className="mobile-button">
                   <Trash2 className="h-4 w-4 mr-2" />
                   {t("delete")}
                 </Button>

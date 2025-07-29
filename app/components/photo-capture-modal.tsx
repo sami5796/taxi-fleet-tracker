@@ -185,51 +185,51 @@ export default function PhotoCaptureModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-full w-full h-full md:max-w-4xl md:h-[90vh] p-0 bg-white dark:bg-black">
-        <DialogHeader className="p-4 md:p-6 pb-2 md:pb-4 bg-white dark:bg-black text-slate-900 dark:text-white">
-          <DialogTitle className="text-lg md:text-xl font-bold text-slate-900 dark:text-white">
+      <DialogContent className="mobile-modal-content max-w-full w-full h-full md:max-w-4xl md:h-[90vh] p-0 bg-white dark:bg-black">
+        <DialogHeader className="mobile-spacing p-4 md:p-6 pb-2 md:pb-4 bg-white dark:bg-black text-slate-900 dark:text-white">
+          <DialogTitle className="mobile-heading text-lg md:text-xl font-bold text-slate-900 dark:text-white">
             {type === "pickup" ? t("photoCapturePickup") : t("photoCaptureReturn")} - {car.plate_number}
           </DialogTitle>
-          <p className="text-xs md:text-sm text-slate-600 dark:text-gray-300">
+          <p className="mobile-text text-xs md:text-sm text-slate-600 dark:text-gray-300">
             {t("photoCaptureInstructions")}
           </p>
         </DialogHeader>
 
-        <div className="flex-1 flex flex-col p-4 md:p-6 pt-0 bg-white dark:bg-black text-slate-900 dark:text-white">
-          {/* Progress Bar - Mobile Optimized */}
+        <div className="flex-1 flex flex-col mobile-spacing p-4 md:p-6 pt-0 bg-white dark:bg-black text-slate-900 dark:text-white">
+          {/* Progress Bar - Enhanced Mobile */}
           <div className="mb-4 md:mb-6">
-            <div className="flex justify-between text-xs md:text-sm text-slate-600 dark:text-gray-300 mb-2">
+            <div className="flex justify-between mobile-text text-xs md:text-sm text-slate-600 dark:text-gray-300 mb-2">
               <span>{t("progress")}: {Object.keys(photos).length}/4</span>
               <span>{Math.round(progress)}%</span>
             </div>
-            <div className="w-full bg-slate-200 dark:bg-gray-700 rounded-full h-2 md:h-3">
+            <div className="w-full bg-slate-200 dark:bg-gray-700 rounded-full h-3 md:h-3">
               <div
-                className="bg-blue-500 h-2 md:h-3 rounded-full transition-all duration-300"
+                className="bg-blue-500 h-3 md:h-3 rounded-full transition-all duration-300"
                 style={{ width: `${progress}%` }}
               />
             </div>
           </div>
 
-          {/* Current Position Info - Mobile Optimized */}
-          <div className="text-center mb-3 md:mb-4">
-            <h3 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white mb-1 md:mb-2">
+          {/* Current Position Info - Enhanced Mobile */}
+          <div className="text-center mb-4 md:mb-4">
+            <h3 className="mobile-heading text-base md:text-lg font-semibold text-slate-900 dark:text-white mb-2 md:mb-2">
               {t("currentPosition")}: {getPositionLabel(currentStep)}
             </h3>
-            <p className="text-xs md:text-sm text-slate-600 dark:text-gray-300">
+            <p className="mobile-text text-xs md:text-sm text-slate-600 dark:text-gray-300">
               {t("positionInstructions")} {getPositionLabel(currentStep).toLowerCase()} {t("ofVehicle")}
             </p>
           </div>
 
-          {/* Camera View - Mobile Optimized */}
-          <div className="flex-1 relative bg-slate-100 dark:bg-gray-900 rounded-lg overflow-hidden mb-4 md:mb-6 min-h-[300px] md:min-h-[400px]">
+          {/* Camera View - Enhanced Mobile */}
+          <div className="flex-1 relative bg-slate-100 dark:bg-gray-900 rounded-lg overflow-hidden mb-4 md:mb-6 min-h-[350px] md:min-h-[400px]">
             {cameraError ? (
               <div className="flex items-center justify-center h-full bg-slate-200 dark:bg-gray-800">
                 <div className="text-center p-6">
                   <Smartphone className="h-12 w-12 text-slate-500 dark:text-gray-400 mx-auto mb-4" />
-                  <p className="text-sm text-slate-700 dark:text-gray-300 mb-4">{cameraError}</p>
+                  <p className="mobile-text text-sm text-slate-700 dark:text-gray-300 mb-4">{cameraError}</p>
                   <Button
                     onClick={startCamera}
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                    className="mobile-button bg-blue-600 hover:bg-blue-700 text-white"
                   >
                     Prøv igjen
                   </Button>
@@ -250,19 +250,19 @@ export default function PhotoCaptureModal({
                 />
                 {isCapturing && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/70">
-                    <div className="text-white text-lg font-medium">{t("capturing")}...</div>
+                    <div className="mobile-text text-white text-lg font-medium">{t("capturing")}...</div>
                   </div>
                 )}
                 
-                {/* Large Capture Button Overlay - Mobile Optimized */}
+                {/* Enhanced Large Capture Button Overlay - Mobile Optimized */}
                 {!photos[currentStep] && !isCapturing && (
-                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                  <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
                     <Button
                       onClick={capturePhoto}
                       size="lg"
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-medium rounded-full shadow-lg min-w-[120px] min-h-[50px]"
+                      className="mobile-touch-friendly bg-blue-600 hover:bg-blue-700 text-white px-10 py-5 text-lg font-medium rounded-full shadow-lg min-w-[140px] min-h-[60px]"
                     >
-                      <Camera className="h-6 w-6 mr-2" />
+                      <Camera className="h-7 w-7 mr-3" />
                       {t("capture")}
                     </Button>
                   </div>
@@ -271,8 +271,8 @@ export default function PhotoCaptureModal({
             )}
           </div>
 
-          {/* Photo Grid - Mobile Optimized */}
-          <div className="grid grid-cols-4 gap-2 mb-4">
+          {/* Enhanced Photo Grid - Mobile Optimized */}
+          <div className="grid grid-cols-4 gap-3 mb-4">
             {photoPositions.map((position) => (
               <div
                 key={position}
@@ -294,7 +294,7 @@ export default function PhotoCaptureModal({
                   <div className="flex items-center justify-center h-full">
                     <div className="text-center">
                       <div className="text-lg mb-1">{getPositionIcon(position)}</div>
-                      <div className="text-xs font-medium text-slate-600 dark:text-slate-400">
+                      <div className="mobile-text text-xs font-medium text-slate-600 dark:text-slate-400">
                         {getPositionLabel(position)}
                       </div>
                     </div>
@@ -302,66 +302,66 @@ export default function PhotoCaptureModal({
                 )}
                 {photos[position] && (
                   <div className="absolute top-1 right-1">
-                    <Check className="h-3 w-3 text-green-600 dark:text-green-400 bg-white dark:bg-slate-800 rounded-full p-0.5" />
+                    <Check className="h-4 w-4 text-green-600 dark:text-green-400 bg-white dark:bg-slate-800 rounded-full p-0.5" />
                   </div>
                 )}
               </div>
             ))}
           </div>
 
-          {/* Navigation and Action Buttons - Mobile Optimized */}
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex gap-2">
+          {/* Enhanced Navigation and Action Buttons - Mobile Optimized */}
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex gap-3">
               <Button
                 variant="outline"
                 onClick={handlePrevious}
                 disabled={currentIndex === 0}
-                className="flex items-center gap-2 text-xs md:text-sm px-3 py-2"
+                className="mobile-button-compact flex items-center gap-2 text-xs md:text-sm px-4 py-3"
               >
-                <ArrowLeft className="h-4 w-4" />
+                <ArrowLeft className="h-5 w-5" />
                 <span className="hidden sm:inline">{t("previous")}</span>
               </Button>
               <Button
                 variant="outline"
                 onClick={handleNext}
                 disabled={currentIndex === photoPositions.length - 1}
-                className="flex items-center gap-2 text-xs md:text-sm px-3 py-2"
+                className="mobile-button-compact flex items-center gap-2 text-xs md:text-sm px-4 py-3"
               >
                 <span className="hidden sm:inline">{t("next")}</span>
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-5 w-5" />
               </Button>
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               {photos[currentStep] && (
                 <Button
                   variant="outline"
                   onClick={retakePhoto}
-                  className="flex items-center gap-2 text-xs md:text-sm px-3 py-2"
+                  className="mobile-button-compact flex items-center gap-2 text-xs md:text-sm px-4 py-3"
                 >
-                  <RotateCcw className="h-4 w-4" />
+                  <RotateCcw className="h-5 w-5" />
                   <span className="hidden sm:inline">{t("retake")}</span>
                 </Button>
               )}
             </div>
           </div>
 
-          {/* Complete Button - Mobile Optimized */}
+          {/* Enhanced Complete Button - Mobile Optimized */}
           {Object.keys(photos).length === 4 && (
-            <div className="mt-4 md:mt-6 text-center">
+            <div className="mt-6 md:mt-6 text-center">
               <Button
                 onClick={handleComplete}
-                className="bg-green-600 hover:bg-green-700 text-white px-6 md:px-8 py-3 text-base md:text-lg font-medium w-full md:w-auto"
+                className="mobile-button bg-green-600 hover:bg-green-700 text-white px-8 md:px-10 py-4 text-base md:text-lg font-medium w-full md:w-auto min-h-[50px]"
                 disabled={isCompleting}
               >
                 {isCompleting ? (
-                  <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <svg className="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
                 ) : (
                   <>
-                    <Check className="h-5 w-5 mr-2" />
+                    <Check className="h-6 w-6 mr-3" />
                     {t("completePhotoCapture")}
                   </>
                 )}
