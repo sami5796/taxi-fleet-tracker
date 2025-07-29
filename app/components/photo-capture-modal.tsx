@@ -185,8 +185,8 @@ export default function PhotoCaptureModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="mobile-modal-content max-w-[80vw] w-[80vw] h-[65vh] md:max-w-2xl md:h-[60vh] p-0 bg-white dark:bg-black">
-        <DialogHeader className="mobile-spacing p-1.5 md:p-2 pb-0.5 md:pb-1 bg-white dark:bg-black text-slate-900 dark:text-white">
+      <DialogContent className="mobile-modal-content max-w-[75vw] w-[75vw] h-[60vh] md:max-w-lg md:h-[55vh] p-0 bg-white dark:bg-black">
+        <DialogHeader className="mobile-spacing p-1 md:p-2 pb-0.5 bg-white dark:bg-black text-slate-900 dark:text-white">
           <DialogTitle className="mobile-heading text-xs font-bold text-slate-900 dark:text-white">
             {type === "pickup" ? t("photoCapturePickup") : t("photoCaptureReturn")} - {car.plate_number}
           </DialogTitle>
@@ -195,9 +195,9 @@ export default function PhotoCaptureModal({
           </p>
         </DialogHeader>
 
-        <div className="flex-1 flex flex-col mobile-spacing p-1.5 md:p-2 pt-0 bg-white dark:bg-black text-slate-900 dark:text-white">
+        <div className="flex-1 flex flex-col mobile-spacing p-1 md:p-2 pt-0 bg-white dark:bg-black text-slate-900 dark:text-white">
           {/* Progress Bar - Mobile First */}
-          <div className="mb-1.5">
+          <div className="mb-1">
             <div className="flex justify-between mobile-text text-xs text-slate-600 dark:text-gray-300 mb-0.5">
               <span>{t("progress")}: {Object.keys(photos).length}/4</span>
               <span>{Math.round(progress)}%</span>
@@ -211,7 +211,7 @@ export default function PhotoCaptureModal({
           </div>
 
           {/* Current Position Info - Mobile First */}
-          <div className="text-center mb-1.5">
+          <div className="text-center mb-1">
             <h3 className="mobile-heading text-xs font-semibold text-slate-900 dark:text-white mb-0.5">
               {t("currentPosition")}: {getPositionLabel(currentStep)}
             </h3>
@@ -220,16 +220,16 @@ export default function PhotoCaptureModal({
             </p>
           </div>
 
-          {/* Camera View - Mobile First - Much Smaller */}
-          <div className="relative bg-slate-100 dark:bg-gray-900 rounded-lg overflow-hidden mb-2 min-h-[80px] md:min-h-[100px]">
+          {/* Camera View - Mobile First - Very Small */}
+          <div className="relative bg-slate-100 dark:bg-gray-900 rounded overflow-hidden mb-1 min-h-[60px] md:min-h-[80px]">
             {cameraError ? (
               <div className="flex items-center justify-center h-full bg-slate-200 dark:bg-gray-800">
-                <div className="text-center p-2">
-                  <Smartphone className="h-4 w-4 text-slate-500 dark:text-gray-400 mx-auto mb-1" />
-                  <p className="mobile-text text-xs text-slate-700 dark:text-gray-300 mb-1">{cameraError}</p>
+                <div className="text-center p-1">
+                  <Smartphone className="h-3 w-3 text-slate-500 dark:text-gray-400 mx-auto mb-0.5" />
+                  <p className="mobile-text text-xs text-slate-700 dark:text-gray-300 mb-0.5">{cameraError}</p>
                   <Button
                     onClick={startCamera}
-                    className="mobile-button bg-blue-600 hover:bg-blue-700 text-white text-xs px-2 py-1"
+                    className="mobile-button bg-blue-600 hover:bg-blue-700 text-white text-xs px-1 py-0.5"
                   >
                     Prøv igjen
                   </Button>
@@ -254,15 +254,15 @@ export default function PhotoCaptureModal({
                   </div>
                 )}
                 
-                {/* Mobile-First Capture Button - Small and Centered */}
+                {/* Mobile-First Capture Button - Very Small */}
                 {!photos[currentStep] && !isCapturing && (
-                  <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
+                  <div className="absolute bottom-0.5 left-1/2 transform -translate-x-1/2">
                     <Button
                       onClick={capturePhoto}
                       size="sm"
-                      className="mobile-touch-friendly bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 text-xs font-medium rounded-full shadow-lg min-w-[60px] min-h-[24px]"
+                      className="mobile-touch-friendly bg-blue-600 hover:bg-blue-700 text-white px-1.5 py-0.5 text-xs font-medium rounded-full shadow-lg min-w-[50px] min-h-[20px]"
                     >
-                      <Camera className="h-2.5 w-2.5 mr-0.5" />
+                      <Camera className="h-2 w-2 mr-0.5" />
                       {t("capture")}
                     </Button>
                   </div>
@@ -271,8 +271,8 @@ export default function PhotoCaptureModal({
             )}
           </div>
 
-          {/* Mobile-First Photo Grid - Compact */}
-          <div className="grid grid-cols-4 gap-0.5 mb-1.5">
+          {/* Mobile-First Photo Grid - Very Compact */}
+          <div className="grid grid-cols-4 gap-0.5 mb-1">
             {photoPositions.map((position) => (
               <div
                 key={position}
@@ -301,34 +301,34 @@ export default function PhotoCaptureModal({
                   </div>
                 )}
                 {photos[position] && (
-                  <div className="absolute top-0.5 right-0.5">
-                    <Check className="h-2 w-2 text-green-600 dark:text-green-400 bg-white dark:bg-slate-800 rounded-full p-0.5" />
+                  <div className="absolute top-0 right-0">
+                    <Check className="h-1.5 w-1.5 text-green-600 dark:text-green-400 bg-white dark:bg-slate-800 rounded-full p-0.5" />
                   </div>
                 )}
               </div>
             ))}
           </div>
 
-          {/* Mobile-First Navigation - Ultra Compact */}
-          <div className="flex items-center justify-between gap-0.5 mb-1.5">
+          {/* Mobile-First Navigation - Very Compact */}
+          <div className="flex items-center justify-between gap-0.5 mb-1">
             <div className="flex gap-0.5">
               <Button
                 variant="outline"
                 onClick={handlePrevious}
                 disabled={currentIndex === 0}
-                className="mobile-button-compact flex items-center gap-0.5 text-xs px-1 py-0.5 h-5"
+                className="mobile-button-compact flex items-center gap-0.5 text-xs px-0.5 py-0.5 h-4"
               >
-                <ArrowLeft className="h-2 w-2" />
+                <ArrowLeft className="h-1.5 w-1.5" />
                 <span className="hidden sm:inline">{t("previous")}</span>
               </Button>
               <Button
                 variant="outline"
                 onClick={handleNext}
                 disabled={currentIndex === photoPositions.length - 1}
-                className="mobile-button-compact flex items-center gap-0.5 text-xs px-1 py-0.5 h-5"
+                className="mobile-button-compact flex items-center gap-0.5 text-xs px-0.5 py-0.5 h-4"
               >
                 <span className="hidden sm:inline">{t("next")}</span>
-                <ArrowRight className="h-2 w-2" />
+                <ArrowRight className="h-1.5 w-1.5" />
               </Button>
             </div>
 
@@ -337,31 +337,31 @@ export default function PhotoCaptureModal({
                 <Button
                   variant="outline"
                   onClick={retakePhoto}
-                  className="mobile-button-compact flex items-center gap-0.5 text-xs px-1 py-0.5 h-5"
+                  className="mobile-button-compact flex items-center gap-0.5 text-xs px-0.5 py-0.5 h-4"
                 >
-                  <RotateCcw className="h-2 w-2" />
+                  <RotateCcw className="h-1.5 w-1.5" />
                   <span className="hidden sm:inline">{t("retake")}</span>
                 </Button>
               )}
             </div>
           </div>
 
-          {/* Mobile-First Complete Button - Compact */}
+          {/* Mobile-First Complete Button - Very Compact */}
           {Object.keys(photos).length === 4 && (
             <div className="text-center">
               <Button
                 onClick={handleComplete}
-                className="mobile-button bg-green-600 hover:bg-green-700 text-white px-2 md:px-3 py-1 text-xs font-medium w-full md:w-auto min-h-[24px]"
+                className="mobile-button bg-green-600 hover:bg-green-700 text-white px-1.5 md:px-2 py-0.5 text-xs font-medium w-full md:w-auto min-h-[20px]"
                 disabled={isCompleting}
               >
                 {isCompleting ? (
-                  <svg className="animate-spin h-2.5 w-2.5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <svg className="animate-spin h-2 w-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
                 ) : (
                   <>
-                    <Check className="h-2.5 w-2.5 mr-0.5" />
+                    <Check className="h-2 w-2 mr-0.5" />
                     {t("completePhotoCapture")}
                   </>
                 )}
