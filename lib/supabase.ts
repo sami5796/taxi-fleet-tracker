@@ -1,7 +1,10 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://qepilgryhhkqoaxnggtb.supabase.co'
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFlcGlsZ3J5aGhrcW9heG5nZ3RiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA5MjYxODksImV4cCI6MjA1NjUwMjE4OX0.dzwJWSKcOlkhFw2wlDn0Nb74LqhoFhVw78j0MSeb48g'
+// Use hardcoded values to avoid environment variable issues
+const supabaseUrl = 'https://qepilgryhhkqoaxnggtb.supabase.co'
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFlcGlsZ3J5aGhrcW9heG5nZ3RiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA5MjYxODksImV4cCI6MjA1NjUwMjE4OX0.dzwJWSKcOlkhFw2wlDn0Nb74LqhoFhVw78j0MSeb48g'
+
+console.log('Creating Supabase client with URL:', supabaseUrl)
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
