@@ -437,6 +437,11 @@ export default function ModernFleetDashboard() {
       (filters.fuelLevel === "high" && car.fuel_level >= 70)
 
     return matchesSearch && matchesStatus && matchesLocation && matchesBattery && matchesFuel
+  }).sort((a, b) => {
+    // Sort available cars to the top
+    if (a.status === "free" && b.status !== "free") return -1
+    if (a.status !== "free" && b.status === "free") return 1
+    return 0
   })
 
   if (loading) {
@@ -642,9 +647,6 @@ export default function ModernFleetDashboard() {
                 {t("showingResults")} <span className="font-bold text-slate-900 dark:text-white">{filteredCars.length}</span> {t("of")}{" "}
                 <span className="font-bold text-slate-900 dark:text-white">{cars.length}</span> {t("vehicles")}
               </p>
-            </div>
-            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-              {t("lastUpdated")} {currentTime || "..."}
             </div>
           </div>
 
