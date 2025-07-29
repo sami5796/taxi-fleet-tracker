@@ -161,18 +161,54 @@ export const carService = {
 
   // Subscribe to car changes
   subscribeToCars(callback: (payload: any) => void) {
-    return supabase
-      .channel('cars_changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'cars' }, callback)
-      .subscribe()
+    try {
+      console.log('data-service: Subscribing to cars changes...')
+      return supabase
+        .channel('cars_changes')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'cars' }, callback)
+        .subscribe((status) => {
+          console.log('data-service: Cars subscription status:', status)
+          if (status === 'SUBSCRIBED') {
+            console.log('data-service: Successfully subscribed to cars changes')
+          } else if (status === 'CHANNEL_ERROR') {
+            console.error('data-service: Cars subscription error')
+          }
+        })
+    } catch (error) {
+      console.error('data-service: Error setting up cars subscription:', error)
+      // Return a dummy subscription object to prevent errors
+      return {
+        unsubscribe: () => {
+          console.log('data-service: Dummy cars subscription unsubscribed')
+        }
+      }
+    }
   },
 
   // Subscribe to schedule changes
   subscribeToSchedules(callback: (payload: any) => void) {
-    return supabase
-      .channel('schedules_changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'vaktliste' }, callback)
-      .subscribe()
+    try {
+      console.log('data-service: Subscribing to schedules changes...')
+      return supabase
+        .channel('schedules_changes')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'vaktliste' }, callback)
+        .subscribe((status) => {
+          console.log('data-service: Schedules subscription status:', status)
+          if (status === 'SUBSCRIBED') {
+            console.log('data-service: Successfully subscribed to schedules changes')
+          } else if (status === 'CHANNEL_ERROR') {
+            console.error('data-service: Schedules subscription error')
+          }
+        })
+    } catch (error) {
+      console.error('data-service: Error setting up schedules subscription:', error)
+      // Return a dummy subscription object to prevent errors
+      return {
+        unsubscribe: () => {
+          console.log('data-service: Dummy schedules subscription unsubscribed')
+        }
+      }
+    }
   },
 
   // Test database connection
@@ -342,10 +378,28 @@ export const driverService = {
 
   // Subscribe to driver changes
   subscribeToDrivers(callback: (payload: any) => void) {
-    return supabase
-      .channel('drivers_changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'drivers' }, callback)
-      .subscribe()
+    try {
+      console.log('data-service: Subscribing to drivers changes...')
+      return supabase
+        .channel('drivers_changes')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'drivers' }, callback)
+        .subscribe((status) => {
+          console.log('data-service: Drivers subscription status:', status)
+          if (status === 'SUBSCRIBED') {
+            console.log('data-service: Successfully subscribed to drivers changes')
+          } else if (status === 'CHANNEL_ERROR') {
+            console.error('data-service: Drivers subscription error')
+          }
+        })
+    } catch (error) {
+      console.error('data-service: Error setting up drivers subscription:', error)
+      // Return a dummy subscription object to prevent errors
+      return {
+        unsubscribe: () => {
+          console.log('data-service: Dummy drivers subscription unsubscribed')
+        }
+      }
+    }
   }
 }
 
@@ -494,10 +548,28 @@ export const vaktlisteService = {
 
   // Subscribe to vaktliste changes
   subscribeToVaktliste(callback: (payload: any) => void) {
-    return supabase
-      .channel('vaktliste_changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'vaktliste' }, callback)
-      .subscribe()
+    try {
+      console.log('data-service: Subscribing to vaktliste changes...')
+      return supabase
+        .channel('vaktliste_changes')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'vaktliste' }, callback)
+        .subscribe((status) => {
+          console.log('data-service: Vaktliste subscription status:', status)
+          if (status === 'SUBSCRIBED') {
+            console.log('data-service: Successfully subscribed to vaktliste changes')
+          } else if (status === 'CHANNEL_ERROR') {
+            console.error('data-service: Vaktliste subscription error')
+          }
+        })
+    } catch (error) {
+      console.error('data-service: Error setting up vaktliste subscription:', error)
+      // Return a dummy subscription object to prevent errors
+      return {
+        unsubscribe: () => {
+          console.log('data-service: Dummy vaktliste subscription unsubscribed')
+        }
+      }
+    }
   }
 }
 
