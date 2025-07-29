@@ -37,10 +37,12 @@ export default function CarListView({ cars, onManage, onReserve, onStatusChange,
   return (
     <div className="space-y-4">
       {cars.map((car) => {
-        const formatLastUpdated = (timestamp: string) => {
+        const formatLastUpdated = (timestamp: string | undefined) => {
+          if (!timestamp) return t("justNow")
+          
           const now = new Date()
           const updated = new Date(timestamp)
-          const timeSinceUpdate = Math.floor((Date.now() - new Date(car.last_updated).getTime()) / (1000 * 60))
+          const timeSinceUpdate = Math.floor((Date.now() - updated.getTime()) / (1000 * 60))
           
           if (timeSinceUpdate < 1) return t("justNow")
           if (timeSinceUpdate < 60) return `${timeSinceUpdate} ${t("minutesAgo")}`

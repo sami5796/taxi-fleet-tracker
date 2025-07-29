@@ -469,581 +469,441 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 mobile-container">
+      <div className="max-w-7xl mx-auto mobile-safe-area py-4 sm:py-6 lg:py-8">
+        <div className="mobile-spacing">
+          {/* Header - Mobile Optimized */}
+          <div className="mobile-card bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20">
+            <div className="mobile-flex items-center justify-between">
               <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            {t("adminDashboard")}
+                <h1 className="mobile-title text-slate-900 dark:text-white">
+                  {t("adminDashboard")}
                 </h1>
               </div>
-        <div className="flex gap-2">
-          <Dialog open={showAddCar} onOpenChange={setShowAddCar}>
-            <DialogTrigger asChild>
-              <Button>
-                <Plus className="h-4 w-4 mr-2" />
-                {t("addCar")}
+              <div className="mobile-flex gap-2">
+                <Dialog open={showAddCar} onOpenChange={setShowAddCar}>
+                  <DialogTrigger asChild>
+                    <Button className="mobile-button">
+                      <Plus className="h-4 w-4 mr-2" />
+                      {t("addCar")}
                     </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>{t("addNewCar")}</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4">
-                <div>
-                  <Label htmlFor="plate_number">{t("plateNumber")}</Label>
-                  <Input
-                    id="plate_number"
-                    value={newCar.plate_number}
-                    onChange={(e) => setNewCar({...newCar, plate_number: e.target.value})}
-                    placeholder="EL12345"
-                  />
-            </div>
-                <div>
-                  <Label htmlFor="model">{t("model")}</Label>
-                  <Input
-                    id="model"
-                    value={newCar.model}
-                    onChange={(e) => setNewCar({...newCar, model: e.target.value})}
-                    placeholder="Tesla Model 3"
-                  />
-          </div>
-                <div>
-                  <Label htmlFor="location">{t("location")}</Label>
-                  <Input
-                    id="location"
-                    value={newCar.location}
-                    onChange={(e) => setNewCar({...newCar, location: e.target.value})}
-                    placeholder="SNØ P-hus"
-                  />
-        </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="battery_level">{t("battery")} (%)</Label>
-                    <Input
-                      id="battery_level"
-                      type="number"
-                      value={newCar.battery_level}
-                      onChange={(e) => setNewCar({...newCar, battery_level: Number(e.target.value)})}
-                      min="0"
-                      max="100"
-                    />
-      </div>
-                  <div>
-                    <Label htmlFor="mileage">{t("mileage")} (km)</Label>
-                    <Input
-                      id="mileage"
-                      type="number"
-                      value={newCar.mileage}
-                      onChange={(e) => setNewCar({...newCar, mileage: Number(e.target.value)})}
-                      min="0"
-                    />
+                  </DialogTrigger>
+                  <DialogContent className="mobile-modal-content max-w-md">
+                    <DialogHeader>
+                      <DialogTitle className="mobile-heading">{t("addNewCar")}</DialogTitle>
+                    </DialogHeader>
+                    <div className="mobile-spacing">
+                      <div>
+                        <Label htmlFor="plate_number" className="mobile-text">{t("plateNumber")}</Label>
+                        <Input
+                          id="plate_number"
+                          value={newCar.plate_number}
+                          onChange={(e) => setNewCar({...newCar, plate_number: e.target.value})}
+                          placeholder="EL12345"
+                          className="mobile-input mt-1"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="model" className="mobile-text">{t("model")}</Label>
+                        <Input
+                          id="model"
+                          value={newCar.model}
+                          onChange={(e) => setNewCar({...newCar, model: e.target.value})}
+                          placeholder="Tesla Model 3"
+                          className="mobile-input mt-1"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="location" className="mobile-text">{t("location")}</Label>
+                        <Input
+                          id="location"
+                          value={newCar.location}
+                          onChange={(e) => setNewCar({...newCar, location: e.target.value})}
+                          placeholder="SNØ P-hus"
+                          className="mobile-input mt-1"
+                        />
+                      </div>
+                      <div className="mobile-grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="battery_level" className="mobile-text">{t("battery")} (%)</Label>
+                          <Input
+                            id="battery_level"
+                            type="number"
+                            value={newCar.battery_level}
+                            onChange={(e) => setNewCar({...newCar, battery_level: Number(e.target.value)})}
+                            min="0"
+                            max="100"
+                            className="mobile-input mt-1"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="mileage" className="mobile-text">{t("mileage")} (km)</Label>
+                          <Input
+                            id="mileage"
+                            type="number"
+                            value={newCar.mileage}
+                            onChange={(e) => setNewCar({...newCar, mileage: Number(e.target.value)})}
+                            min="0"
+                            className="mobile-input mt-1"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex justify-end gap-2 pt-4">
+                        <Button variant="outline" onClick={() => setShowAddCar(false)} className="mobile-button">
+                          {t("cancel")}
+                        </Button>
+                        <Button onClick={handleAddCar} className="mobile-button">
+                          {t("addCar")}
+                        </Button>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+                <Button onClick={loadData} variant="outline" className="mobile-button">
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  {t("refresh")}
+                </Button>
               </div>
             </div>
-                <div className="flex justify-end gap-2">
-                  <Button variant="outline" onClick={() => setShowAddCar(false)}>
-                    {t("cancel")}
-                  </Button>
-                  <Button onClick={handleAddCar}>
-                    {t("addCar")}
-                  </Button>
-          </div>
-                  </div>
-            </DialogContent>
-          </Dialog>
-          <Button onClick={loadData} variant="outline">
-            <RefreshCw className="h-4 w-4 mr-2" />
-            {t("refresh")}
-          </Button>
-                  </div>
-                </div>
-
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t("totalVehicles")}</CardTitle>
-            <Car className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{cars.length}</div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t("available")}</CardTitle>
-            <CheckCircle className="h-4 w-4 text-green-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600">{cars.filter(car => car.status === 'free').length}</div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t("inUse")}</CardTitle>
-            <XCircle className="h-4 w-4 text-red-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-red-600">{cars.filter(car => car.status === 'busy').length}</div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t("maintenance")}</CardTitle>
-            <Wrench className="h-4 w-4 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-gray-600">{cars.filter(car => car.status === 'maintenance').length}</div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Main Content */}
-      <Tabs defaultValue="fleet" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="fleet">{t("fleet")}</TabsTrigger>
-          <TabsTrigger value="photos">{t("photos")}</TabsTrigger>
-        </TabsList>
-
-            {/* Fleet Management */}
-        <TabsContent value="fleet" className="space-y-4">
-          {/* Filters */}
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input
-                  placeholder={t("searchVehicles")}
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
-                  </div>
-                </div>
-            <Select value={filterStatus} onValueChange={(value: any) => setFilterStatus(value)}>
-              <SelectTrigger className="w-full sm:w-48">
-                <SelectValue placeholder={t("filterByStatus")} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t("allStatuses")}</SelectItem>
-                <SelectItem value="free">{t("available")}</SelectItem>
-                <SelectItem value="busy">{t("inUse")}</SelectItem>
-                <SelectItem value="reserved">{t("reserved")}</SelectItem>
-                <SelectItem value="maintenance">{t("maintenance")}</SelectItem>
-              </SelectContent>
-            </Select>
           </div>
 
-          {/* Fleet Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredCars.map((car) => (
-              <Card 
-                key={car.id} 
-                className={`hover:shadow-lg transition-shadow ${
-                  isCarScheduled(car) ? 'opacity-75 bg-gray-50 dark:bg-gray-800' : ''
-                }`}
-              >
-            <CardHeader>
-                  <div className="flex items-center justify-between">
-                <div>
-                      <CardTitle className="text-lg">{car.plate_number}</CardTitle>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{car.model}</p>
+          {/* Stats Cards - Mobile Optimized */}
+          <div className="mobile-grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Card className="mobile-card">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="mobile-text font-medium">{t("totalVehicles")}</CardTitle>
+                <Car className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="mobile-title">{cars.length}</div>
+              </CardContent>
+            </Card>
+
+            <Card className="mobile-card">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="mobile-text font-medium">{t("available")}</CardTitle>
+                <CheckCircle className="h-4 w-4 text-green-500" />
+              </CardHeader>
+              <CardContent>
+                <div className="mobile-title text-green-600">{cars.filter(car => car.status === 'free').length}</div>
+              </CardContent>
+            </Card>
+
+            <Card className="mobile-card">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="mobile-text font-medium">{t("inUse")}</CardTitle>
+                <XCircle className="h-4 w-4 text-red-500" />
+              </CardHeader>
+              <CardContent>
+                <div className="mobile-title text-red-600">{cars.filter(car => car.status === 'busy').length}</div>
+              </CardContent>
+            </Card>
+
+            <Card className="mobile-card">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="mobile-text font-medium">{t("maintenance")}</CardTitle>
+                <Wrench className="h-4 w-4 text-gray-500" />
+              </CardHeader>
+              <CardContent>
+                <div className="mobile-title text-gray-600">{cars.filter(car => car.status === 'maintenance').length}</div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Main Content */}
+          <Tabs defaultValue="vehicles" className="mobile-spacing">
+            <TabsList className="mobile-flex w-full">
+              <TabsTrigger value="vehicles" className="mobile-button flex-1">{t("vehicles")}</TabsTrigger>
+              <TabsTrigger value="photos" className="mobile-button flex-1">{t("photos")}</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="vehicles" className="mobile-spacing">
+              {/* Search and Filter */}
+              <div className="mobile-card bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20">
+                <div className="mobile-spacing">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-4 w-4" />
+                    <Input
+                      placeholder={t("searchVehicles")}
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="mobile-input pl-10"
+                    />
+                  </div>
+                  <Select value={filterStatus} onValueChange={(value: any) => setFilterStatus(value)}>
+                    <SelectTrigger className="mobile-input">
+                      <SelectValue placeholder={t("filterByStatus")} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">{t("allStatuses")}</SelectItem>
+                      <SelectItem value="free">{t("available")}</SelectItem>
+                      <SelectItem value="busy">{t("inUse")}</SelectItem>
+                      <SelectItem value="reserved">{t("reserved")}</SelectItem>
+                      <SelectItem value="maintenance">{t("maintenance")}</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
-                    <Badge className={getStatusColor(car.status)}>
-                      {getStatusText(car.status)}
-                    </Badge>
-                </div>
-                  {isCarScheduled(car) && (
-                    <div className="flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400">
-                      <CalendarDays className="h-3 w-3" />
-                      <span>{getScheduledTimeText(car)}</span>
               </div>
-                  )}
-            </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-600 dark:text-gray-400 flex items-center gap-1">
-                      <MapPin className="h-3 w-3" />
-                      {t("location")}:
-                    </span>
-                    <span>{car.location}</span>
-                            </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-600 dark:text-gray-400 flex items-center gap-1">
-                      <Battery className="h-3 w-3" />
-                      {t("battery")}:
-                    </span>
-                    <span className={getBatteryColor(car.battery_level)}>{car.battery_level}%</span>
-                          </div>
-                  {car.driver_name && (
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400 flex items-center gap-1">
-                        <User className="h-3 w-3" />
-                        {t("driver")}:
-                              </span>
-                      <span>{car.driver_name}</span>
-                            </div>
-                  )}
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-600 dark:text-gray-400 flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      {t("lastUpdated")}:
-                              </span>
-                    <span>{new Date(car.last_updated).toLocaleString()}</span>
-                          </div>
-                          
-                          {/* Action Buttons */}
-                  <div className="flex gap-2 pt-2">
+
+              {/* Vehicles List */}
+              <div className="mobile-grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {cars
+                  .filter(car => 
+                    car.plate_number?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    car.model?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    car.location?.toLowerCase().includes(searchTerm.toLowerCase())
+                  )
+                  .filter(car => filterStatus === "all" || car.status === filterStatus)
+                  .map(car => (
+                    <Card key={car.id} className="mobile-card">
+                      <CardHeader className="pb-3">
+                        <div className="flex items-center justify-between">
+                          <Badge className={`${getStatusColor(car.status)}`}>
+                            {getStatusText(car.status)}
+                          </Badge>
+                          <div className="flex gap-1">
                             <Button
-                      onClick={() => handleViewPhotos(car.id)}
-                              className="flex-1"
-                              variant="outline"
                               size="sm"
-                            >
-                      <Camera className="h-4 w-4 mr-1" />
-                      {t("viewPhotos")}
-                            </Button>
-                    
-                    {!isCarScheduled(car) ? (
-                      <>
-                        <Dialog>
-                          <DialogTrigger asChild>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                              onClick={() => setSelectedCar(car)}
-                    >
-                              <Edit className="h-4 w-4" />
-                    </Button>
-                          </DialogTrigger>
-                          <DialogContent>
-          <DialogHeader>
-                              <DialogTitle>{t("editCar")}</DialogTitle>
-          </DialogHeader>
-                            {selectedCar && (
-                              <div className="space-y-4">
-                                <div>
-                                  <Label htmlFor="edit_plate_number">{t("plateNumber")}</Label>
-                                  <Input
-                                    id="edit_plate_number"
-                                    value={selectedCar.plate_number}
-                                    onChange={(e) => setSelectedCar({...selectedCar, plate_number: e.target.value})}
-                                  />
-            </div>
-                                <div>
-                                  <Label htmlFor="edit_model">{t("model")}</Label>
-                <Input
-                                    id="edit_model"
-                                    value={selectedCar.model}
-                                    onChange={(e) => setSelectedCar({...selectedCar, model: e.target.value})}
-                />
-              </div>
-                                <div>
-                                  <Label htmlFor="edit_location">{t("location")}</Label>
-                <Input
-                                    id="edit_location"
-                                    value={selectedCar.location}
-                                    onChange={(e) => setSelectedCar({...selectedCar, location: e.target.value})}
-                />
-              </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                  <div>
-                                    <Label htmlFor="edit_battery_level">{t("battery")} (%)</Label>
-                                    <Input
-                                      id="edit_battery_level"
-                                      type="number"
-                                      value={selectedCar.battery_level}
-                                      onChange={(e) => setSelectedCar({...selectedCar, battery_level: Number(e.target.value)})}
-                                      min="0"
-                                      max="100"
-                          />
-                        </div>
-                                  <div>
-                                    <Label htmlFor="edit_mileage">{t("mileage")} (km)</Label>
-                                    <Input
-                                      id="edit_mileage"
-                                      type="number"
-                                      value={selectedCar.mileage}
-                                      onChange={(e) => setSelectedCar({...selectedCar, mileage: Number(e.target.value)})}
-                                      min="0"
-                          />
-                        </div>
-                                </div>
-                                <div>
-                                  <Label htmlFor="edit_status">{t("status")}</Label>
-                          <Select 
-                                    value={selectedCar.status}
-                                    onValueChange={(value: "free" | "busy" | "reserved" | "maintenance") => setSelectedCar({...selectedCar, status: value})}
-                                  >
-                                    <SelectTrigger>
-                                      <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                                      <SelectItem value="free">{t("available")}</SelectItem>
-                                      <SelectItem value="busy">{t("inUse")}</SelectItem>
-                                      <SelectItem value="reserved">{t("reserved")}</SelectItem>
-                                      <SelectItem value="maintenance">{t("maintenance")}</SelectItem>
-                            </SelectContent>
-                          </Select>
-                                    </div>
-                                <div className="flex justify-end gap-2">
-                                  <Button variant="outline" onClick={() => setSelectedCar(null)}>
-                                    {t("cancel")}
-              </Button>
-                                  <Button onClick={handleEditCar}>
-                                    {t("save")}
-              </Button>
-            </div>
-          </div>
-                            )}
-        </DialogContent>
-      </Dialog>
-
-                        <Dialog open={showScheduleCar} onOpenChange={setShowScheduleCar}>
-                          <DialogTrigger asChild>
-              <Button 
                               variant="outline"
-                              size="sm"
                               onClick={() => {
                                 setSelectedCar(car)
-                                setShowScheduleCar(true)
+                                setShowEditCar(true)
                               }}
+                              className="mobile-button-compact"
                             >
-                              <CalendarDays className="h-4 w-4" />
-              </Button>
-                          </DialogTrigger>
-                          <DialogContent>
-          <DialogHeader>
-                              <DialogTitle>{t("scheduleCar")}</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-                              <div>
-                                <Label htmlFor="driver_name">{t("driverName")}</Label>
-                <Input
-                                  id="driver_name"
-                                  value={scheduleData.driver_name}
-                                  onChange={(e) => setScheduleData({...scheduleData, driver_name: e.target.value})}
-                                  placeholder="Enter driver name"
-                />
-              </div>
-                              <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                  <Label htmlFor="reserved_from">{t("from")}</Label>
-                <Input
-                                    id="reserved_from"
-                                    type="datetime-local"
-                                    value={scheduleData.reserved_from}
-                                    onChange={(e) => setScheduleData({...scheduleData, reserved_from: e.target.value})}
-                />
-              </div>
-                                <div>
-                                  <Label htmlFor="reserved_to">{t("to")}</Label>
-              <Input
-                                    id="reserved_to"
-                                    type="datetime-local"
-                                    value={scheduleData.reserved_to}
-                                    onChange={(e) => setScheduleData({...scheduleData, reserved_to: e.target.value})}
-              />
-            </div>
-            </div>
+                              <Edit className="h-3 w-3" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleDeleteCar(car.id)}
+                              className="mobile-button-compact text-red-600"
+                            >
+                              <Trash2 className="h-3 w-3" />
+                            </Button>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="mobile-spacing">
                         <div>
-                                <Label htmlFor="notes">{t("notes")}</Label>
-              <Textarea
-                                  id="notes"
-                                  value={scheduleData.notes}
-                                  onChange={(e) => setScheduleData({...scheduleData, notes: e.target.value})}
-                                  placeholder="Optional notes"
-              />
-            </div>
-                              <div className="flex justify-end gap-2">
-                                <Button variant="outline" onClick={() => setShowScheduleCar(false)}>
-                                  {t("cancel")}
-                </Button>
-                                <Button onClick={handleScheduleCar}>
-                                  {t("schedule")}
-                </Button>
-              </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-                      </>
-                    ) : (
-                      <>
-                      <Button 
-                        variant="outline"
-                          size="sm"
-                          onClick={() => openEditSchedule(car)}
-                          className="text-blue-600 hover:text-blue-700"
-                      >
-                          <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                          variant="outline"
-                        size="sm" 
-                          onClick={() => handleCancelReservation(car.id)}
-                          className="text-red-600 hover:text-red-700"
-                        >
-                          <XCircle className="h-4 w-4" />
-                        </Button>
-                      </>
-                    )}
-                    
-                      <Button 
-                        variant="outline"
-                      size="sm"
-                      onClick={() => handleDeleteCar(car.id)}
-                        className="text-red-600 hover:text-red-700"
-                      >
-                      <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-        </TabsContent>
-
-        {/* Photo Management */}
-        <TabsContent value="photos" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Camera className="h-5 w-5" />
-                {t("recentPhotos")}
-              </CardTitle>
-              {recentPhotos.length>0 && (
-                <Button size="sm" variant="outline" onClick={()=>setSelectedPhotos(new Set(recentPhotos.map(p=>p.id)))} className="ml-2">Velg Alle</Button>
-              )}
-              {recentPhotos.length>0 && (
-                <Button size="sm" variant="destructive" onClick={()=>{setSelectedPhotos(new Set(recentPhotos.map(p=>p.id))); handleDeleteSelected();}} className="ml-2 flex items-center gap-1">
-                  <Trash2 className="h-4 w-4" /> Slett Alle
-                </Button>
-              )}
-            </CardHeader>
-            <CardContent>
-              {recentPhotos.length === 0 ? (
-              <div className="text-center py-8">
-                  <Camera className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
-                    {t("noPhotosYet")}
-                  </h3>
-                  <p className="text-gray-500 dark:text-gray-400">
-                    {t("noPhotosDescription")}
-                </p>
-              </div>
-              ) : (
-                Object.entries(getGroupedPhotos()).sort((a,b)=>b[0].localeCompare(a[0])).map(([day, carsMap]) => (
-                  <div key={day} className="mb-6">
-                    <h3 className="font-semibold text-lg mb-2 flex items-center gap-2"><Calendar className="h-4 w-4" /> {day}</h3>
-                    {Object.entries(carsMap).map(([carId, driversMap]) => (
-                      <div key={carId} className="mb-4 ml-4">
-                        <h4 className="font-medium mb-1 flex items-center gap-2"><Car className="h-4 w-4" /> {carId}</h4>
-                        {Object.entries(driversMap).map(([driverKey, photosArr]) => {
-                          const [driverName, trip] = driverKey.split('-')
-                          return (
-                            <div key={driverKey} className="mb-3 ml-4">
-                              <div className="text-sm text-slate-600 mb-1 flex items-center gap-2">
-                                <User className="h-4 w-4" /> {driverName} <Badge variant="secondary" className="ml-1 text-xs">{trip}</Badge>
-                              </div>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                                {photosArr.map(p => (
-                                  <div key={p.id} className={`relative group ${selectedPhotos.has(p.id)?'ring-2 ring-blue-500':''}` }>
-                                    <img src={p.photo_url} alt="photo" className="w-full h-32 object-cover rounded border" />
-                                    {/* checkbox for multi select */}
-                                    <input type="checkbox" className="absolute top-1 left-1 h-4 w-4" checked={selectedPhotos.has(p.id)} onChange={()=>togglePhotoSelect(p.id)} />
-                                    {/* single delete button */}
-                                    <button className="absolute top-1 right-1 bg-white/70 rounded p-0.5" onClick={async()=>{ if(confirm('Slett bilde?')){ setRecentPhotos(prev=>prev.filter(ph=>ph.id!==p.id)); await photoService.deletePhoto(p.id); } }}>
-                                       <Trash2 className="h-3 w-3 text-red-600" />
-                                    </button>
-                                  </div>
-                                ))}
-                              </div>
+                          <h3 className="mobile-heading font-bold">{car.plate_number}</h3>
+                          <p className="mobile-text text-slate-600 dark:text-slate-400">{car.model}</p>
+                        </div>
+                        
+                        <div className="mobile-spacing">
+                          <div className="flex items-center gap-2">
+                            <MapPin className="h-4 w-4 text-slate-500" />
+                            <span className="mobile-text">{car.location || t("notSpecified")}</span>
+                          </div>
+                          
+                          <div className="flex items-center gap-2">
+                            <Battery className="h-4 w-4 text-slate-500" />
+                            <span className={`mobile-text font-medium ${getBatteryColor(car.battery_level)}`}>
+                              {car.battery_level}%
+                            </span>
+                          </div>
+                          
+                          {car.driver_name && (
+                            <div className="flex items-center gap-2">
+                              <User className="h-4 w-4 text-slate-500" />
+                              <span className="mobile-text">{car.driver_name}</span>
                             </div>
-                          )
-                        })}
-                      </div>
-                    ))}
+                          )}
+                        </div>
+
+                        {/* Status Change Buttons */}
+                        <div className="mobile-grid grid-cols-2 gap-2">
+                          {car.status !== "free" && (
+                            <Button
+                              size="sm"
+                              onClick={() => handleStatusChange(car.id, "free")}
+                              className="mobile-button-compact bg-green-600 hover:bg-green-700"
+                            >
+                              {t("setAvailable")}
+                            </Button>
+                          )}
+                          {car.status !== "busy" && (
+                            <Button
+                              size="sm"
+                              onClick={() => handleStatusChange(car.id, "busy")}
+                              className="mobile-button-compact bg-blue-600 hover:bg-blue-700"
+                            >
+                              {t("setInUse")}
+                            </Button>
+                          )}
+                          {car.status !== "maintenance" && (
+                            <Button
+                              size="sm"
+                              onClick={() => handleStatusChange(car.id, "maintenance")}
+                              className="mobile-button-compact bg-orange-600 hover:bg-orange-700"
+                            >
+                              {t("setMaintenance")}
+                            </Button>
+                          )}
+                        </div>
+
+                        {/* Schedule Button */}
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            setSelectedCar(car)
+                            setShowScheduleCar(true)
+                          }}
+                          className="mobile-button w-full"
+                        >
+                          <Calendar className="h-4 w-4 mr-2" />
+                          {t("schedule")}
+                        </Button>
+
+                        {/* View Photos Button */}
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleViewPhotos(car.id)}
+                          className="mobile-button w-full"
+                        >
+                          <Camera className="h-4 w-4 mr-2" />
+                          {t("viewPhotos")}
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="photos" className="mobile-spacing">
+              <Card className="mobile-card">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="mobile-heading">{t("recentPhotos")}</CardTitle>
+                    {selectedPhotos.size > 0 && (
+                      <Button
+                        onClick={handleDeleteSelected}
+                        variant="destructive"
+                        size="sm"
+                        className="mobile-button-compact"
+                      >
+                        <Trash2 className="h-4 w-4 mr-2" />
+                        {t("deleteSelected")} ({selectedPhotos.size})
+                      </Button>
+                    )}
                   </div>
-                ))
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+                </CardHeader>
+                <CardContent>
+                  {recentPhotos.length === 0 ? (
+                    <div className="text-center py-8">
+                      <Image className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+                      <p className="mobile-text text-slate-600 dark:text-slate-400">{t("noPhotosFound")}</p>
+                    </div>
+                  ) : (
+                    <div className="mobile-spacing">
+                      {Object.entries(getGroupedPhotos()).map(([carId, photosArr]) => (
+                        <div key={carId} className="mobile-card">
+                          <div className="flex items-center justify-between mb-4">
+                            <h3 className="mobile-subtitle font-semibold">
+                              {cars.find(c => c.id === carId)?.plate_number || carId}
+                            </h3>
+                            <span className="mobile-text text-slate-500">{photosArr.length} {t("photos")}</span>
+                          </div>
+                          <div className="mobile-grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                            {photosArr.map(p => (
+                              <div key={p.id} className={`relative group ${selectedPhotos.has(p.id)?'ring-2 ring-blue-500':''}` }>
+                                <img src={p.photo_url} alt="photo" className="w-full h-32 object-cover rounded border" />
+                                {/* checkbox for multi select */}
+                                <input type="checkbox" className="absolute top-1 left-1 h-4 w-4" checked={selectedPhotos.has(p.id)} onChange={()=>togglePhotoSelect(p.id)} />
+                                {/* single delete button */}
+                                <button className="mobile-touch-friendly absolute top-1 right-1 bg-white/70 rounded p-0.5" onClick={async()=>{ if(confirm('Slett bilde?')){ setRecentPhotos(prev=>prev.filter(ph=>ph.id!==p.id)); await photoService.deletePhoto(p.id); } }}>
+                                   <Trash2 className="h-3 w-3 text-red-600" />
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
 
-      {/* Photo Viewer Modal */}
-      {selectedCarId && (
-        <PhotoViewer
-          carId={selectedCarId}
-          isOpen={showPhotoViewer}
-          onClose={() => {
-            setShowPhotoViewer(false)
-            setSelectedCarId(null)
-          }}
-        />
-      )}
+          {/* Photo Viewer Modal */}
+          {selectedCarId && (
+            <PhotoViewer
+              carId={selectedCarId}
+              isOpen={showPhotoViewer}
+              onClose={() => {
+                setShowPhotoViewer(false)
+                setSelectedCarId(null)
+              }}
+            />
+          )}
 
-      {/* Edit Schedule Dialog */}
-      {selectedCar && (
-      <Dialog open={showEditSchedule} onOpenChange={setShowEditSchedule}>
-          <DialogContent>
-          <DialogHeader>
-              <DialogTitle>Rediger Plan</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-              <div>
-                <Label htmlFor="edit_driver_name">{t("driverName")}</Label>
-                <Input
-                  id="edit_driver_name"
-                  value={scheduleData.driver_name}
-                  onChange={(e) => setScheduleData({...scheduleData, driver_name: e.target.value})}
-                  placeholder="Enter driver name"
-                />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="edit_reserved_from">{t("from")}</Label>
-                  <Input
-                    id="edit_reserved_from"
-                    type="datetime-local"
-                    value={scheduleData.reserved_from}
-                    onChange={(e) => setScheduleData({...scheduleData, reserved_from: e.target.value})}
-                />
-              </div>
-                <div>
-                  <Label htmlFor="edit_reserved_to">{t("to")}</Label>
-                  <Input
-                    id="edit_reserved_to"
-                    type="datetime-local"
-                    value={scheduleData.reserved_to}
-                    onChange={(e) => setScheduleData({...scheduleData, reserved_to: e.target.value})}
-                />
-              </div>
-            </div>
-              <div>
-                <Label htmlFor="edit_notes">{t("notes")}</Label>
-              <Textarea
-                  id="edit_notes"
-                  value={scheduleData.notes}
-                  onChange={(e) => setScheduleData({...scheduleData, notes: e.target.value})}
-                  placeholder="Optional notes"
-              />
-            </div>
-              <div className="flex justify-end gap-2">
-                <Button variant="outline" onClick={() => setSelectedCar(null)}>
-                  {t("cancel")}
-              </Button>
-                <Button onClick={handleEditSchedule}>
-                  {t("save")}
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-      )}
+          {/* Edit Schedule Dialog */}
+          {selectedCar && (
+            <Dialog open={showEditSchedule} onOpenChange={setShowEditSchedule}>
+              <DialogContent className="mobile-modal-content max-w-md">
+                <DialogHeader>
+                  <DialogTitle className="mobile-heading">Rediger Plan</DialogTitle>
+                </DialogHeader>
+                <div className="mobile-spacing">
+                  <div>
+                    <Label htmlFor="edit_driver_name" className="mobile-text">{t("driverName")}</Label>
+                    <Input
+                      id="edit_driver_name"
+                      value={scheduleData.driver_name}
+                      onChange={(e) => setScheduleData({...scheduleData, driver_name: e.target.value})}
+                      placeholder="Enter driver name"
+                      className="mobile-input mt-1"
+                    />
+                  </div>
+                  <div className="mobile-grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="edit_reserved_from" className="mobile-text">{t("from")}</Label>
+                      <Input
+                        id="edit_reserved_from"
+                        type="datetime-local"
+                        value={scheduleData.reserved_from}
+                        onChange={(e) => setScheduleData({...scheduleData, reserved_from: e.target.value})}
+                        className="mobile-input mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="edit_reserved_to" className="mobile-text">{t("to")}</Label>
+                      <Input
+                        id="edit_reserved_to"
+                        type="datetime-local"
+                        value={scheduleData.reserved_to}
+                        onChange={(e) => setScheduleData({...scheduleData, reserved_to: e.target.value})}
+                        className="mobile-input mt-1"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="edit_notes" className="mobile-text">{t("notes")}</Label>
+                    <Textarea
+                      id="edit_notes"
+                      value={scheduleData.notes}
+                      onChange={(e) => setScheduleData({...scheduleData, notes: e.target.value})}
+                      placeholder="Optional notes"
+                      className="mobile-input mt-1"
+                    />
+                  </div>
+                  <div className="flex justify-end gap-2 pt-4">
+                    <Button variant="outline" onClick={() => setSelectedCar(null)} className="mobile-button">
+                      {t("cancel")}
+                    </Button>
+                    <Button onClick={handleEditSchedule} className="mobile-button">
+                      {t("save")}
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
+        </div>
+      </div>
     </div>
   )
 } 

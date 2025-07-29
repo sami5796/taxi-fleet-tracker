@@ -471,18 +471,18 @@ export default function ModernFleetDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 mobile-container">
       {/* Header - Mobile Optimized */}
-      <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-4">
-            {/* Header Actions */}
-            <div className="flex items-center space-x-2">
+      <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20 shadow-sm sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto mobile-safe-area">
+          <div className="flex items-center justify-between py-3 sm:py-4">
+            {/* Header Actions - Mobile Optimized */}
+            <div className="flex items-center space-x-2 sm:space-x-3">
               {/* Status Indicator */}
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2 mobile-touch-friendly">
                       <div className={`w-2 h-2 rounded-full ${cars.length > 0 ? 'bg-green-500' : 'bg-yellow-500'}`} />
                       <span className="text-xs text-slate-600 dark:text-slate-400 hidden sm:inline">
                         {cars.length} {t("vehicles")}
@@ -495,7 +495,7 @@ export default function ModernFleetDashboard() {
                 </Tooltip>
               </TooltipProvider>
 
-              {/* Refresh Button with Status */}
+              {/* Refresh Button with Status - Mobile Optimized */}
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -504,10 +504,10 @@ export default function ModernFleetDashboard() {
                       disabled={isRefreshing}
                       variant="outline"
                       size="sm"
-                      className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20"
+                      className="mobile-button-compact bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20"
                     >
-                      <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
-                      {isRefreshing ? t("refreshing") : t("refresh")}
+                      <RefreshCw className={`h-4 w-4 mr-1 sm:mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
+                      <span className="hidden sm:inline">{isRefreshing ? t("refreshing") : t("refresh")}</span>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -516,7 +516,7 @@ export default function ModernFleetDashboard() {
                 </Tooltip>
               </TooltipProvider>
 
-              {/* Help Button */}
+              {/* Help Button - Mobile Optimized */}
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -524,7 +524,7 @@ export default function ModernFleetDashboard() {
                       onClick={() => setShowHelp(!showHelp)}
                       variant="outline"
                       size="sm"
-                      className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20"
+                      className="mobile-button-compact bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20"
                     >
                       <HelpCircle className="h-4 w-4" />
                     </Button>
@@ -542,22 +542,22 @@ export default function ModernFleetDashboard() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
+      <div className="max-w-7xl mx-auto mobile-safe-area py-4 sm:py-6 lg:py-8">
         {/* Main Content - Mobile Optimized for All Screens */}
-        <div className="flex-1 flex flex-col gap-6">
+        <div className="flex-1 flex flex-col gap-4 sm:gap-6">
           {/* Fleet Stats removed for driver view (admin only) */}
 
           {/* Search and Filters - Mobile Optimized */}
-          <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20 rounded-xl p-4">
-            <div className="space-y-4">
-              {/* Help Section */}
+          <div className="mobile-card bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20">
+            <div className="mobile-spacing">
+              {/* Help Section - Mobile Optimized */}
               {showHelp && (
-                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-4">
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 sm:p-4">
                   <div className="flex items-start space-x-3">
                     <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
                     <div className="space-y-2">
-                      <h3 className="font-medium text-blue-900 dark:text-blue-100">Quick Tips</h3>
-                      <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+                      <h3 className="mobile-subtitle text-blue-900 dark:text-blue-100">Quick Tips</h3>
+                      <ul className="mobile-text text-blue-800 dark:text-blue-200 space-y-1">
                         <li>• <strong>Search:</strong> Find vehicles by plate number, model, or driver</li>
                         <li>• <strong>Filters:</strong> Filter by status, location, or battery level</li>
                         <li>• <strong>View Modes:</strong> Switch between grid and list views</li>
@@ -576,26 +576,26 @@ export default function ModernFleetDashboard() {
                   placeholder={t("search")}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 h-10 md:h-12 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20 shadow-sm text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:bg-white dark:focus:bg-slate-800 text-sm md:text-base"
+                  className="mobile-input pl-10 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20 shadow-sm text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:bg-white dark:focus:bg-slate-800"
                 />
                 {searchTerm && (
                   <Button
                     onClick={() => setSearchTerm("")}
                     variant="ghost"
                     size="sm"
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
+                    className="mobile-touch-friendly absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
                   >
                     ×
                   </Button>
                 )}
               </div>
 
-              {/* Filter Button - Mobile Optimized */}
-              <div className="flex items-center space-x-2">
+              {/* Filter and View Controls - Mobile Optimized */}
+              <div className="mobile-flex items-center space-x-2">
                 <Button
                   onClick={() => setShowFilters(!showFilters)}
                   variant="outline"
-                  className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20 hover:bg-white dark:hover:bg-slate-800 font-medium h-10 md:h-12 flex-1 md:flex-none"
+                  className="mobile-button bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20 hover:bg-white dark:hover:bg-slate-800 font-medium flex-1 sm:flex-none"
                 >
                   <Filter className="h-4 w-4 md:h-5 md:w-5 mr-2" />
                   {t("filters")}
@@ -606,7 +606,7 @@ export default function ModernFleetDashboard() {
                   )}
                 </Button>
 
-                {/* View Mode Toggle */}
+                {/* View Mode Toggle - Mobile Optimized */}
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -614,7 +614,7 @@ export default function ModernFleetDashboard() {
                         onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
                         variant="outline"
                         size="sm"
-                        className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20 h-10 md:h-12"
+                        className="mobile-button-compact bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20"
                       >
                         {viewMode === "grid" ? <List className="h-4 w-4" /> : <Grid3X3 className="h-4 w-4" />}
                       </Button>
@@ -628,39 +628,17 @@ export default function ModernFleetDashboard() {
             </div>
           </div>
 
-          {/* Filter Panel */}
+          {/* Filter Panel - Mobile Optimized */}
           {showFilters && (
-            <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20 rounded-xl p-4">
+            <div className="mobile-card bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20">
               <FilterPanel filters={filters} onFiltersChange={setFilters} cars={cars} />
             </div>
           )}
 
-          {/* View Mode Toggle - Mobile Optimized */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Button
-                variant={viewMode === "grid" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setViewMode("grid")}
-                className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20 hover:bg-white dark:hover:bg-slate-800"
-              >
-                <Grid3X3 className="h-4 w-4" />
-              </Button>
-              <Button
-                variant={viewMode === "list" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setViewMode("list")}
-                className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20 hover:bg-white dark:hover:bg-slate-800"
-              >
-                <List className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-
           {/* Results Info - Mobile Optimized */}
-          <div className="mb-6 flex items-center justify-between">
+          <div className="mb-4 sm:mb-6 flex items-center justify-between mobile-text">
             <div className="flex items-center gap-4">
-              <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
+              <p className="font-medium text-slate-700 dark:text-slate-300">
                 {t("showingResults")} <span className="font-bold text-slate-900 dark:text-white">{filteredCars.length}</span> {t("of")}{" "}
                 <span className="font-bold text-slate-900 dark:text-white">{cars.length}</span> {t("vehicles")}
               </p>
@@ -672,7 +650,7 @@ export default function ModernFleetDashboard() {
 
           {/* Vehicle Display - Mobile Optimized Grid for All Screens */}
           {viewMode === "grid" ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+            <div className="mobile-grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6">
               {filteredCars.map((car) => (
                 <CarCard
                   key={car.id}
@@ -702,14 +680,14 @@ export default function ModernFleetDashboard() {
             />
           )}
 
-          {/* Empty State */}
+          {/* Empty State - Mobile Optimized */}
           {filteredCars.length === 0 && (
-            <div className="text-center py-16">
-              <div className="bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <Car className="h-10 w-10 text-slate-500 dark:text-slate-400" />
+            <div className="text-center py-12 sm:py-16">
+              <div className="bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 rounded-full w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
+                <Car className="h-8 w-8 sm:h-10 sm:w-10 text-slate-500 dark:text-slate-400" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{t("noVehiclesFound")}</h3>
-              <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-md mx-auto">
+              <h3 className="mobile-title text-slate-900 dark:text-white mb-2 sm:mb-3">{t("noVehiclesFound")}</h3>
+              <p className="mobile-text text-slate-600 dark:text-slate-400 mb-4 sm:mb-6 max-w-md mx-auto">
                 {searchTerm || Object.values(filters).some((f) => f !== "all")
                   ? t("tryAdjusting")
                   : t("noVehiclesAvailable")}
@@ -718,7 +696,7 @@ export default function ModernFleetDashboard() {
                 <Button
                   variant="outline"
                   onClick={() => setSearchTerm("")}
-                  className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20 hover:bg-white dark:hover:bg-slate-800 font-medium"
+                  className="mobile-button bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20 hover:bg-white dark:hover:bg-slate-800 font-medium"
                 >
                   {t("clearSearch")}
                 </Button>
@@ -776,40 +754,42 @@ export default function ModernFleetDashboard() {
 
       {showDriverAuth && (
         <Dialog open={showDriverAuth} onOpenChange={setShowDriverAuth}>
-          <DialogContent className="max-w-md">
+          <DialogContent className="mobile-modal-content max-w-md">
             <DialogHeader>
-              <DialogTitle>Sjåførautentisering</DialogTitle>
+              <DialogTitle className="mobile-heading">Sjåførautentisering</DialogTitle>
             </DialogHeader>
-            <div className="space-y-4">
-              <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+            <div className="mobile-spacing">
+              <div className="bg-blue-50 border border-blue-200 p-3 sm:p-4 rounded-lg">
                 <div className="flex items-center mb-2">
                   <AlertCircle className="h-4 w-4 mr-2 text-blue-600" />
-                  <span className="text-sm font-medium text-blue-800">Eksempel Sjåfører</span>
+                  <span className="mobile-text font-medium text-blue-800">Eksempel Sjåfører</span>
                 </div>
-                <p className="text-sm text-blue-700">
+                <p className="mobile-text text-blue-700">
                   Bruk Sjåfør ID: <strong>1234</strong> og Sjåførnavn: <strong>Bruker 1</strong> til <strong>Bruker 10</strong>
                 </p>
               </div>
 
-              <div className="space-y-3">
+              <div className="mobile-spacing">
                 <div>
-                  <Label htmlFor="driverId">Sjåfør ID *</Label>
+                  <Label htmlFor="driverId" className="mobile-text">Sjåfør ID *</Label>
                   <Input
                     id="driverId"
                     placeholder="Skriv inn sjåfør ID (1234)"
                     value={driverId}
                     onChange={(e) => setDriverId(e.target.value)}
                     disabled={isValidatingDriver}
+                    className="mobile-input mt-1"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="driverName">Sjåførnavn *</Label>
+                  <Label htmlFor="driverName" className="mobile-text">Sjåførnavn *</Label>
                   <Input
                     id="driverName"
                     placeholder="Skriv inn sjåførnavn (Bruker 1-10)"
                     value={driverName}
                     onChange={(e) => setDriverName(e.target.value)}
                     disabled={isValidatingDriver}
+                    className="mobile-input mt-1"
                   />
                 </div>
                 
@@ -817,9 +797,9 @@ export default function ModernFleetDashboard() {
                   <div className="bg-red-50 border border-red-200 p-3 rounded-lg">
                     <div className="flex items-center mb-2">
                       <AlertCircle className="h-4 w-4 mr-2 text-red-600" />
-                      <span className="text-sm font-medium text-red-800">Feil:</span>
+                      <span className="mobile-text font-medium text-red-800">Feil:</span>
                     </div>
-                    <ul className="text-sm text-red-700 list-disc list-inside space-y-1">
+                    <ul className="mobile-text text-red-700 list-disc list-inside space-y-1">
                       {driverErrors.map((error, index) => (
                         <li key={index}>{error}</li>
                       ))}
@@ -832,14 +812,14 @@ export default function ModernFleetDashboard() {
                 <Button
                   variant="outline"
                   onClick={resetDriverAuth}
-                  className="flex-1"
+                  className="mobile-button flex-1"
                 >
                   Avbryt
                 </Button>
                 <Button
                   onClick={handleDriverAuthComplete}
                   disabled={isValidatingDriver || !driverId.trim() || !driverName.trim()}
-                  className="flex-1"
+                  className="mobile-button flex-1"
                 >
                   {isValidatingDriver ? "Validerer..." : "Autentiser Sjåfør"}
                 </Button>

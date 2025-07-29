@@ -114,54 +114,35 @@ export default function CarCard({ car, onManage, onReserve, onStatusChange, onTa
   }
 
   return (
-    <Card className={`glass-effect border-white/20 professional-shadow hover:shadow-xl transition-all duration-300 group relative ${
-      isCarScheduled ? 'opacity-75 bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800' : ''
-    }`}>
-      {isUpdating && (
-        <div className="absolute inset-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-lg flex items-center justify-center z-10">
-          <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-            <span className="text-sm font-medium">Updating...</span>
-          </div>
-        </div>
-      )}
+    <Card className="mobile-card bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 dark:border-slate-700/20 hover:shadow-lg transition-all duration-200 hover:scale-[1.02] hover:-translate-y-1">
       <CardContent className="p-4">
-        {/* Header with Status Badge */}
-        <div className="flex items-center justify-between mb-3">
-          <Badge 
-            variant="secondary" 
-            className={`${statusConfig[car.status].bgColor} ${statusConfig[car.status].textColor} border-0 font-medium ${
-              isCarScheduled ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300' : ''
-            }`}
+        {/* Status Badge */}
+        <div className="flex items-center justify-between mb-2">
+          <Badge
+            variant="secondary"
+            className={`${statusConfig[car.status].bgColor} ${statusConfig[car.status].textColor} border-0 font-medium text-xs sm:text-sm`}
           >
-            {isCarScheduled ? 'Admin Scheduled' : statusConfig[car.status].label}
+            <div className={`w-2 h-2 rounded-full ${statusConfig[car.status].color} mr-2`} />
+            {statusConfig[car.status].label}
           </Badge>
-          <div className="text-xs text-slate-500 dark:text-slate-400">
-            {formatLastUpdated(car.last_updated)}
-          </div>
-        </div>
 
-        {/* Scheduled Indicator */}
-        {isCarScheduled && (
-          <div className="mb-3 p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
-            <div className="flex items-center gap-2">
-              <CalendarDays className="h-3 w-3 text-purple-600" />
-              <span className="text-xs font-medium text-purple-700 dark:text-purple-300">
+          {/* Scheduled Badge */}
+          {isCarScheduled && (
+            <div className="flex items-center space-x-1">
+              <CalendarDays className="h-3 w-3 text-purple-600 dark:text-purple-400" />
+              <span className="text-xs text-purple-600 dark:text-purple-400 font-medium">
                 Admin Scheduled
               </span>
             </div>
-            <div className="text-xs text-purple-600 dark:text-purple-400 mt-1">
-              {getScheduledTimeText()}
-            </div>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Plate Number and Model */}
         <div className="mb-3">
-          <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-1">
+          <h3 className="mobile-heading font-bold text-slate-900 dark:text-white mb-1">
             {car.plate_number}
           </h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
+          <p className="mobile-text text-slate-600 dark:text-slate-400">
             {car.model}
           </p>
         </div>
@@ -171,7 +152,7 @@ export default function CarCard({ car, onManage, onReserve, onStatusChange, onTa
           <div className="mb-3 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
             <div className="flex items-center gap-2">
               <Users className="h-3 w-3 text-blue-600" />
-              <span className="text-xs font-medium text-blue-700 dark:text-blue-300">
+              <span className="mobile-text font-medium text-blue-700 dark:text-blue-300">
                 <span className="truncate max-w-20">{car.driver_name}</span>
               </span>
             </div>
@@ -181,10 +162,10 @@ export default function CarCard({ car, onManage, onReserve, onStatusChange, onTa
         {/* Battery Level */}
         <div className="mb-3">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
+            <span className="mobile-text font-medium text-slate-700 dark:text-slate-300">
               {t("charge")}
             </span>
-            <span className={`text-xs font-bold ${getChargeColor()}`}>
+            <span className={`mobile-text font-bold ${getChargeColor()}`}>
               {car.battery_level}%
             </span>
           </div>
@@ -202,11 +183,11 @@ export default function CarCard({ car, onManage, onReserve, onStatusChange, onTa
         <div className="mb-3">
           <div className="flex items-center gap-2 mb-1">
             <MapPin className="h-3 w-3 text-slate-500" />
-            <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
+            <span className="mobile-text font-medium text-slate-700 dark:text-slate-300">
               {t("location")}
             </span>
           </div>
-          <p className="text-xs text-slate-600 dark:text-slate-400 truncate">
+          <p className="mobile-text text-slate-600 dark:text-slate-400 truncate">
             {car.location || t("notSpecified")}
           </p>
         </div>
@@ -215,12 +196,12 @@ export default function CarCard({ car, onManage, onReserve, onStatusChange, onTa
         <div className="mb-3">
           <div className="flex items-center gap-2 mb-1">
             <Clock className="h-3 w-3 text-slate-500" />
-            <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
+            <span className="mobile-text font-medium text-slate-700 dark:text-slate-300">
               {t("lastUpdated")}
             </span>
           </div>
-          <p className="text-xs text-slate-600 dark:text-slate-400">
-            {formatLastUpdated(car.last_updated)}
+          <p className="mobile-text text-slate-600 dark:text-slate-400">
+            {car.last_updated ? formatLastUpdated(car.last_updated) : t("justNow")}
           </p>
         </div>
 
@@ -231,7 +212,7 @@ export default function CarCard({ car, onManage, onReserve, onStatusChange, onTa
               <Button
                 onClick={() => handleAction(() => onTakeWithCharge(car))}
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium shadow-lg shadow-blue-200 dark:shadow-blue-900/20"
+                className="mobile-button w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium shadow-lg shadow-blue-200 dark:shadow-blue-900/20"
               >
                 {isLoading ? t("loading") : t("takeVehicle")}
               </Button>
@@ -239,7 +220,7 @@ export default function CarCard({ car, onManage, onReserve, onStatusChange, onTa
                 onClick={() => handleAction(() => onReserve(car))}
                 variant="outline"
                 disabled={isLoading}
-                className="w-full border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 font-medium opacity-80"
+                className="mobile-button w-full border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 font-medium opacity-80"
               >
                 {t("reserve")}
               </Button>
@@ -250,7 +231,7 @@ export default function CarCard({ car, onManage, onReserve, onStatusChange, onTa
             <Button
               variant="outline"
               disabled={true}
-              className="w-full border-purple-300 dark:border-purple-600 bg-purple-50 dark:bg-purple-800 text-purple-400 dark:text-purple-500 font-medium opacity-50 cursor-not-allowed"
+              className="mobile-button w-full border-purple-300 dark:border-purple-600 bg-purple-50 dark:bg-purple-800 text-purple-400 dark:text-purple-500 font-medium opacity-50 cursor-not-allowed"
             >
               Admin Scheduled
             </Button>
@@ -260,7 +241,7 @@ export default function CarCard({ car, onManage, onReserve, onStatusChange, onTa
             <Button
               onClick={() => handleAction(() => onReturnWithCharge(car))}
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-medium shadow-lg shadow-green-200 dark:shadow-green-900/20"
+              className="mobile-button w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-medium shadow-lg shadow-green-200 dark:shadow-green-900/20"
             >
               {isLoading ? t("loading") : t("returnVehicle")}
             </Button>
@@ -271,7 +252,7 @@ export default function CarCard({ car, onManage, onReserve, onStatusChange, onTa
               onClick={() => handleAction(() => onManage(car))}
               variant="outline"
               disabled={isLoading}
-              className="w-full border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 font-medium opacity-80"
+              className="mobile-button w-full border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 font-medium opacity-80"
             >
               {t("viewDetails")}
             </Button>
@@ -281,7 +262,7 @@ export default function CarCard({ car, onManage, onReserve, onStatusChange, onTa
             <Button
               variant="outline"
               disabled={true}
-              className="w-full border-purple-300 dark:border-purple-600 bg-purple-50 dark:bg-purple-800 text-purple-400 dark:text-purple-500 font-medium opacity-50 cursor-not-allowed"
+              className="mobile-button w-full border-purple-300 dark:border-purple-600 bg-purple-50 dark:bg-purple-800 text-purple-400 dark:text-purple-500 font-medium opacity-50 cursor-not-allowed"
             >
               Admin Scheduled
             </Button>
@@ -292,7 +273,7 @@ export default function CarCard({ car, onManage, onReserve, onStatusChange, onTa
               onClick={() => handleAction(() => onManage(car))}
               variant="outline"
               disabled={isLoading}
-              className="w-full border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 font-medium opacity-50"
+              className="mobile-button w-full border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 font-medium opacity-50"
             >
               {t("viewDetails")}
             </Button>

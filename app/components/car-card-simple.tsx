@@ -62,7 +62,19 @@ export default function CarCard({
   }
 
   const statusConfig = getStatusConfig(car.status)
-  const timeSinceUpdate = Math.floor((Date.now() - new Date(car.last_updated).getTime()) / (1000 * 60))
+
+  const formatLastUpdated = (timestamp: string | undefined) => {
+    if (!timestamp) return t("justNow")
+    
+    const now = new Date()
+    const updated = new Date(timestamp)
+    const timeSinceUpdate = Math.floor((Date.now() - updated.getTime()) / (1000 * 60))
+    
+    if (timeSinceUpdate < 1) return t("justNow")
+    if (timeSinceUpdate < 60) return `${timeSinceUpdate} ${t("minutesAgo")}`
+    if (timeSinceUpdate < 1440) return `${Math.floor(timeSinceUpdate / 60)} ${t("hoursAgo")}`
+    return `${Math.floor(timeSinceUpdate / 1440)} ${t("daysAgo")}`
+  }
 
   const getChargeColor = (level: number) => {
     if (level < 30) return "text-rose-600"
@@ -139,7 +151,7 @@ export default function CarCard({
           </div>
           <div className="flex items-center gap-2 md:gap-3 text-sm text-slate-500">
             <Clock className="h-4 w-4 flex-shrink-0" />
-            <span>{timeSinceUpdate < 1 ? t("justNow") : `${timeSinceUpdate}m ${t("ago")}`}</span>
+            <span>{formatLastUpdated(car.last_updated)}</span>
           </div>
         </div>
 
