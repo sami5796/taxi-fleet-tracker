@@ -64,10 +64,10 @@ export default function CarCard({ car, onManage, onReserve, onStatusChange, onTa
     }
   }
 
-  const isVeryLowCharge = car.fuel_level < 20
-  const isLowCharge = car.fuel_level < 30
-  const isMediumCharge = car.fuel_level >= 30 && car.fuel_level < 70
-  const isHighCharge = car.fuel_level >= 70
+  const isVeryLowCharge = car.battery_level < 20
+  const isLowCharge = car.battery_level < 30
+  const isMediumCharge = car.battery_level >= 30 && car.battery_level < 70
+  const isHighCharge = car.battery_level >= 70
 
   const getChargeColor = () => {
     if (isVeryLowCharge) return "text-red-600"
@@ -165,9 +165,14 @@ export default function CarCard({ car, onManage, onReserve, onStatusChange, onTa
             <span className="mobile-text font-medium text-slate-700 dark:text-slate-300">
               {t("charge")}
             </span>
-            <span className={`mobile-text font-bold ${getChargeColor()}`}>
-              {car.battery_level}%
-            </span>
+            <div className="flex items-center gap-1">
+              {car.battery_level < 30 && (
+                <AlertTriangle className="h-3 w-3 text-red-500" />
+              )}
+              <span className={`mobile-text font-bold ${getChargeColor()}`}>
+                {car.battery_level}%
+              </span>
+            </div>
           </div>
           <div className="relative">
             <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
@@ -177,6 +182,16 @@ export default function CarCard({ car, onManage, onReserve, onStatusChange, onTa
               />
             </div>
           </div>
+          {car.battery_level < 30 && (
+            <div className="mt-1 p-2 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+              <div className="flex items-center gap-1">
+                <AlertTriangle className="h-3 w-3 text-red-500" />
+                <span className="mobile-text text-xs text-red-700 dark:text-red-300 font-medium">
+                  {t("lowBatteryAlert")} - {car.battery_level}% {t("charge")}
+                </span>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Location */}

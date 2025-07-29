@@ -391,9 +391,10 @@ export default function AdminPage() {
   }
 
   const getBatteryColor = (level: number) => {
-    if (level > 50) return 'text-green-500'
-    if (level > 20) return 'text-yellow-500'
-    return 'text-red-500'
+    if (level >= 70) return 'text-green-600 dark:text-green-400'
+    if (level >= 50) return 'text-yellow-600 dark:text-yellow-400'
+    if (level >= 30) return 'text-orange-600 dark:text-orange-400'
+    return 'text-red-600 dark:text-red-400'
   }
 
   const isCarScheduled = (car: CarData) => {
@@ -716,10 +717,26 @@ export default function AdminPage() {
                           
                           <div className="flex items-center gap-2">
                             <Battery className="h-4 w-4 text-slate-500" />
-                            <span className={`mobile-text font-medium ${getBatteryColor(car.battery_level)}`}>
-                              {car.battery_level}%
-                            </span>
+                            <div className="flex items-center gap-1">
+                              {car.battery_level < 30 && (
+                                <AlertTriangle className="h-3 w-3 text-red-500" />
+                              )}
+                              <span className={`mobile-text font-medium ${getBatteryColor(car.battery_level)}`}>
+                                {car.battery_level}%
+                              </span>
+                            </div>
                           </div>
+                          
+                          {car.battery_level < 30 && (
+                            <div className="p-2 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+                              <div className="flex items-center gap-1">
+                                <AlertTriangle className="h-3 w-3 text-red-500" />
+                                <span className="mobile-text text-xs text-red-700 dark:text-red-300 font-medium">
+                                  {t("lowBatteryAlert")} - {car.battery_level}% {t("charge")}
+                                </span>
+                              </div>
+                            </div>
+                          )}
                           
                           {car.driver_name && (
                             <div className="flex items-center gap-2">

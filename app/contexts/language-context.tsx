@@ -276,7 +276,7 @@ const translations = {
     reserved: "Reservert",
     maintenance: "Vedlikehold",
     utilization: "Utnyttelse",
-    lowBatteryAlert: "Lavt Batteri Varsel",
+    lowBatteryAlert: "Lavt batterinivå",
     lowChargeAlert: "Lav Lading Varsel",
     needCharging: "trenger lading",
     needRecharging: "trenger lading",
