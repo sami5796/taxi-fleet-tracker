@@ -358,3 +358,45 @@
     @apply bg-slate-100 dark:bg-slate-800;
   }
 }
+
+/* Mobile keyboard handling */
+@media screen and (max-height: 600px) {
+  .mobile-modal-content {
+    height: 90vh !important;
+    max-height: 90vh !important;
+  }
+}
+
+/* Ensure inputs are properly sized for mobile */
+.mobile-input {
+  font-size: 16px !important; /* Prevents zoom on iOS */
+  min-height: 44px; /* Touch-friendly minimum height */
+}
+
+/* Modal content scrolling */
+.mobile-modal-content .overflow-y-auto {
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+}
+
+.mobile-modal-content .overflow-y-auto::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mobile-modal-content .overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mobile-modal-content .overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.5);
+  border-radius: 2px;
+}
+
+/* Ensure modal stays above keyboard */
+@media screen and (max-height: 500px) {
+  .mobile-modal-content {
+    height: 95vh !important;
+    max-height: 95vh !important;
+  }
+}

@@ -881,11 +881,11 @@ export default function AdminPage() {
           {/* Edit Schedule Dialog */}
           {selectedCar && (
             <Dialog open={showEditSchedule} onOpenChange={setShowEditSchedule}>
-              <DialogContent className="mobile-modal-content max-w-md">
+              <DialogContent className="mobile-modal-content max-w-md h-[80vh] md:h-auto">
                 <DialogHeader>
                   <DialogTitle className="mobile-heading">Rediger Plan</DialogTitle>
                 </DialogHeader>
-                <div className="mobile-spacing">
+                <div className="mobile-spacing overflow-y-auto flex-1">
                   <div>
                     <Label htmlFor="edit_driver_name" className="mobile-text">{t("driverName")}</Label>
                     <Input
@@ -944,11 +944,11 @@ export default function AdminPage() {
           {/* Edit Car Dialog */}
           {selectedCar && (
             <Dialog open={showEditCar} onOpenChange={setShowEditCar}>
-              <DialogContent className="mobile-modal-content max-w-md">
+              <DialogContent className="mobile-modal-content max-w-md h-[80vh] md:h-auto">
                 <DialogHeader>
                   <DialogTitle className="mobile-heading">{t("editCar")}</DialogTitle>
                 </DialogHeader>
-                <div className="mobile-spacing">
+                <div className="mobile-spacing overflow-y-auto flex-1">
                   <div>
                     <Label htmlFor="edit_plate_number" className="mobile-text">{t("plateNumber")}</Label>
                     <Input
@@ -1018,11 +1018,11 @@ export default function AdminPage() {
           {/* Schedule Car Dialog */}
           {selectedCar && (
             <Dialog open={showScheduleCar} onOpenChange={setShowScheduleCar}>
-              <DialogContent className="mobile-modal-content max-w-md">
+              <DialogContent className="mobile-modal-content max-w-md h-[80vh] md:h-auto">
                 <DialogHeader>
                   <DialogTitle className="mobile-heading">{t("scheduleCar")}</DialogTitle>
                 </DialogHeader>
-                <div className="mobile-spacing">
+                <div className="mobile-spacing overflow-y-auto flex-1">
                   <div>
                     <Label htmlFor="schedule_driver_name" className="mobile-text">{t("driverName")}</Label>
                     <Input
